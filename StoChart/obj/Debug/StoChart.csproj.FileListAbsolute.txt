@@ -1,0 +1,9 @@
+c:\users\lstrerath\documents\visual studio 2013\Projects\StoChart\StoChart\bin\Debug\StoChart.exe.config
+c:\users\lstrerath\documents\visual studio 2013\Projects\StoChart\StoChart\bin\Debug\StoChart.exe
+c:\users\lstrerath\documents\visual studio 2013\Projects\StoChart\StoChart\bin\Debug\StoChart.pdb
+c:\users\lstrerath\documents\visual studio 2013\Projects\StoChart\StoChart\obj\Debug\StoChart.csprojResolveAssemblyReference.cache
+c:\users\lstrerath\documents\visual studio 2013\Projects\StoChart\StoChart\obj\Debug\StoChart.Properties.Resources.resources
+c:\users\lstrerath\documents\visual studio 2013\Projects\StoChart\StoChart\obj\Debug\StoChart.csproj.GenerateResource.Cache
+c:\users\lstrerath\documents\visual studio 2013\Projects\StoChart\StoChart\obj\Debug\StoChart.exe
+c:\users\lstrerath\documents\visual studio 2013\Projects\StoChart\StoChart\obj\Debug\StoChart.pdb
+C:\Users\LStrerath\documents\visual studio 2013\Projects\StoChart\StoChart\obj\Debug\StoChart.Form1.resources
