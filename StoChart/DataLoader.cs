@@ -17,6 +17,7 @@ namespace DataLoader {
         static public void f_LoadStock(System.Windows.Forms.DataVisualization.Charting.Chart chart, CDataStock DataStock) {
 
             chart.Series.Add(DataStock.quote.symbol);
+            chart.Series[DataStock.quote.symbol].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             chart.Series[DataStock.quote.symbol].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             chart.Series[DataStock.quote.symbol].Points.Clear();
 
@@ -27,6 +28,10 @@ namespace DataLoader {
 
                 l_data.Add(Convert.ToDateTime(chart1.date));
                 l_Y.Add(Convert.ToInt32(chart1.close));
+                if (Convert.ToInt32(chart1.close) > chart.ChartAreas[0].AxisY.Maximum) chart.ChartAreas[0].AxisY.Maximum = Convert.ToInt32(chart1.close) + 20;
+                else if (Convert.ToInt32(chart1.close) < chart.ChartAreas[0].AxisY.Minimum && (chart1.close - 20) > 0) chart.ChartAreas[0].AxisY.Minimum = Convert.ToInt32(chart1.close) - 20;
+                else if (Convert.ToInt32(chart1.close) < chart.ChartAreas[0].AxisY.Minimum && (chart1.close - 20) <= 0) chart.ChartAreas[0].AxisY.Minimum = Convert.ToInt32(chart1.close);
+                MessageBox.Show(chart1.date);
 
             };
 
