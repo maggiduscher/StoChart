@@ -16,24 +16,31 @@ using Newtonsoft.Json;
 
 namespace StoChart
 {
-    public partial class Form1 : Form
+    public partial class StoChart : Form
     {
         private bool b_StLoaded;
-        public Form1()
+        public StoChart()
         {
             InitializeComponent();
-            if (File.Exists(@"C:\StoChart.conf"))
+            if (File.Exists(@"C:\StoChart\config.conf"))
             {
 
                 StreamReader sr = new StreamReader(@"C:\Users\"+ Environment.UserName +@"\StoChart\config.conf");
 
             }
-            else { 
-            
+            else {
+
+                Directory.CreateDirectory(@"C:\StoChart");
                 StreamWriter sw = new StreamWriter(@"C:\Users\"+ Environment.UserName +@"\StoChart\config.conf");
+                sw.Close();
                 StreamReader sr = new StreamReader(@"C:\Users\" + Environment.UserName + @"\StoChart\config.conf");
+                sr.Close();
 
             }
+
+            chart1.Series.Clear();
+            chart1.ChartAreas[0].AxisY.Minimum = 999999;
+            chart1.ChartAreas[0].AxisY.Maximum = 0;
         }
 
         private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
@@ -44,9 +51,6 @@ namespace StoChart
         private void tabControl1_Click(object sender, EventArgs e)
         {
 
-            chart1.Series.Clear();
-            chart1.ChartAreas[0].AxisY.Minimum = 999999;
-            chart1.ChartAreas[0].AxisY.Maximum = 0;
 
             AddStock AdSt = new AddStock();
 

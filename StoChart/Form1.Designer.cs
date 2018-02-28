@@ -1,6 +1,6 @@
 ﻿namespace StoChart
 {
-    partial class Form1
+    partial class StoChart
     {
         /// <summary>
         /// Erforderliche Designervariable.
@@ -37,7 +37,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.cb_Depot = new System.Windows.Forms.ComboBox();
+            this.cb_Depot_Stock = new System.Windows.Forms.ComboBox();
             this.tb_ISIN = new System.Windows.Forms.TextBox();
             this.tb_WKN = new System.Windows.Forms.TextBox();
             this.tb_Menge = new System.Windows.Forms.TextBox();
@@ -49,7 +49,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cb_Depot = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -58,6 +58,9 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.konfigurationspfadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tb_Depot = new System.Windows.Forms.TextBox();
+            this.b_Depot = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -87,7 +90,7 @@
             this.tabPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.label6);
-            this.tabPage1.Controls.Add(this.cb_Depot);
+            this.tabPage1.Controls.Add(this.cb_Depot_Stock);
             this.tabPage1.Controls.Add(this.tb_ISIN);
             this.tabPage1.Controls.Add(this.tb_WKN);
             this.tabPage1.Controls.Add(this.tb_Menge);
@@ -124,13 +127,13 @@
             this.label6.TabIndex = 10;
             this.label6.Text = "Depot";
             // 
-            // cb_Depot
+            // cb_Depot_Stock
             // 
-            this.cb_Depot.FormattingEnabled = true;
-            this.cb_Depot.Location = new System.Drawing.Point(111, 304);
-            this.cb_Depot.Name = "cb_Depot";
-            this.cb_Depot.Size = new System.Drawing.Size(121, 21);
-            this.cb_Depot.TabIndex = 9;
+            this.cb_Depot_Stock.FormattingEnabled = true;
+            this.cb_Depot_Stock.Location = new System.Drawing.Point(111, 304);
+            this.cb_Depot_Stock.Name = "cb_Depot_Stock";
+            this.cb_Depot_Stock.Size = new System.Drawing.Size(121, 21);
+            this.cb_Depot_Stock.TabIndex = 9;
             // 
             // tb_ISIN
             // 
@@ -215,8 +218,11 @@
             this.tabPage2.BackColor = System.Drawing.SystemColors.MenuBar;
             this.tabPage2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.tabPage2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage2.Controls.Add(this.label7);
+            this.tabPage2.Controls.Add(this.b_Depot);
+            this.tabPage2.Controls.Add(this.tb_Depot);
             this.tabPage2.Controls.Add(this.tableLayoutPanel1);
-            this.tabPage2.Controls.Add(this.comboBox2);
+            this.tabPage2.Controls.Add(this.cb_Depot);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -229,21 +235,21 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(33, 90);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(33, 135);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(750, 298);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(750, 253);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
-            // comboBox2
+            // cb_Depot
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(33, 18);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 0;
+            this.cb_Depot.FormattingEnabled = true;
+            this.cb_Depot.Location = new System.Drawing.Point(662, 104);
+            this.cb_Depot.Name = "cb_Depot";
+            this.cb_Depot.Size = new System.Drawing.Size(121, 21);
+            this.cb_Depot.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -451,7 +457,32 @@
             this.konfigurationspfadToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.konfigurationspfadToolStripMenuItem.Text = "Konfigurationspfad";
             // 
-            // Form1
+            // tb_Depot
+            // 
+            this.tb_Depot.Location = new System.Drawing.Point(88, 40);
+            this.tb_Depot.Name = "tb_Depot";
+            this.tb_Depot.Size = new System.Drawing.Size(100, 20);
+            this.tb_Depot.TabIndex = 2;
+            // 
+            // b_Depot
+            // 
+            this.b_Depot.Location = new System.Drawing.Point(209, 38);
+            this.b_Depot.Name = "b_Depot";
+            this.b_Depot.Size = new System.Drawing.Size(75, 23);
+            this.b_Depot.TabIndex = 3;
+            this.b_Depot.Text = "Hinzufügen";
+            this.b_Depot.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(33, 43);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(35, 13);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "Name";
+            // 
+            // StoChart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -459,12 +490,13 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "StoChart";
+            this.Text = "StoChart";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
@@ -482,7 +514,7 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox cb_Depot;
+        private System.Windows.Forms.ComboBox cb_Depot_Stock;
         private System.Windows.Forms.TextBox tb_ISIN;
         private System.Windows.Forms.TextBox tb_WKN;
         private System.Windows.Forms.TextBox tb_Menge;
@@ -494,7 +526,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cb_Depot;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
@@ -503,6 +535,9 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem konfigurationspfadToolStripMenuItem;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button b_Depot;
+        private System.Windows.Forms.TextBox tb_Depot;
     }
 }
 

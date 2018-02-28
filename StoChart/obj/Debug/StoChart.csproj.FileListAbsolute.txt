@@ -6,7 +6,6 @@ c:\users\lstrerath\documents\visual studio 2013\Projects\StoChart\StoChart\obj\D
 c:\users\lstrerath\documents\visual studio 2013\Projects\StoChart\StoChart\obj\Debug\StoChart.csproj.GenerateResource.Cache
 c:\users\lstrerath\documents\visual studio 2013\Projects\StoChart\StoChart\obj\Debug\StoChart.exe
 c:\users\lstrerath\documents\visual studio 2013\Projects\StoChart\StoChart\obj\Debug\StoChart.pdb
-C:\Users\LStrerath\documents\visual studio 2013\Projects\StoChart\StoChart\obj\Debug\StoChart.Form1.resources
 C:\Users\Lars\source\repos\StoChart\StoChart\StoChart\obj\Debug\StoChart.csprojResolveAssemblyReference.cache
 C:\Users\Lars\source\repos\StoChart\StoChart\StoChart\obj\Debug\StoChart.Form1.resources
 C:\Users\Lars\source\repos\StoChart\StoChart\StoChart\obj\Debug\StoChart.Properties.Resources.resources
@@ -19,3 +18,6 @@ C:\Users\Lars\source\repos\StoChart\StoChart\StoChart\bin\Debug\StoChart.pdb
 C:\Users\Lars\source\repos\StoChart\StoChart\StoChart\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Lars\source\repos\StoChart\StoChart\StoChart\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Lars\source\repos\StoChart\StoChart\StoChart\obj\Debug\StoChart.pdb
+C:\Users\LStrerath\Documents\Visual Studio 2013\Projects\StoChart\StoChart\bin\Debug\Newtonsoft.Json.dll
+C:\Users\LStrerath\Documents\Visual Studio 2013\Projects\StoChart\StoChart\bin\Debug\Newtonsoft.Json.xml
+C:\Users\LStrerath\Documents\Visual Studio 2013\Projects\StoChart\StoChart\obj\Debug\StoChart.StoChart.resources
