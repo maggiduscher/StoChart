@@ -35,7 +35,7 @@
             System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint2 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(2D, 5D);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
+            this.b_aktien = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.cb_Depot_Stock = new System.Windows.Forms.ComboBox();
             this.tb_ISIN = new System.Windows.Forms.TextBox();
@@ -48,6 +48,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
+            this.b_Depot = new System.Windows.Forms.Button();
+            this.tb_Depot = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.cb_Depot = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -58,9 +61,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.konfigurationspfadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tb_Depot = new System.Windows.Forms.TextBox();
-            this.b_Depot = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dtp_Aktien = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -88,7 +90,9 @@
             this.tabPage1.BackColor = System.Drawing.SystemColors.MenuBar;
             this.tabPage1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.tabPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Controls.Add(this.dtp_Aktien);
+            this.tabPage1.Controls.Add(this.dateTimePicker1);
+            this.tabPage1.Controls.Add(this.b_aktien);
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.cb_Depot_Stock);
             this.tabPage1.Controls.Add(this.tb_ISIN);
@@ -108,14 +112,15 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Manager";
             // 
-            // button1
+            // b_aktien
             // 
-            this.button1.Location = new System.Drawing.Point(405, 302);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(97, 23);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Bestätigen";
-            this.button1.UseVisualStyleBackColor = true;
+            this.b_aktien.Location = new System.Drawing.Point(408, 366);
+            this.b_aktien.Name = "b_aktien";
+            this.b_aktien.Size = new System.Drawing.Size(97, 23);
+            this.b_aktien.TabIndex = 11;
+            this.b_aktien.Text = "Bestätigen";
+            this.b_aktien.UseVisualStyleBackColor = true;
+            this.b_aktien.Click += new System.EventHandler(this.b_aktien_Click);
             // 
             // label6
             // 
@@ -132,7 +137,7 @@
             this.cb_Depot_Stock.FormattingEnabled = true;
             this.cb_Depot_Stock.Location = new System.Drawing.Point(111, 304);
             this.cb_Depot_Stock.Name = "cb_Depot_Stock";
-            this.cb_Depot_Stock.Size = new System.Drawing.Size(121, 21);
+            this.cb_Depot_Stock.Size = new System.Drawing.Size(100, 21);
             this.cb_Depot_Stock.TabIndex = 9;
             // 
             // tb_ISIN
@@ -230,6 +235,31 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Depot";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(33, 43);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(35, 13);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "Name";
+            // 
+            // b_Depot
+            // 
+            this.b_Depot.Location = new System.Drawing.Point(209, 38);
+            this.b_Depot.Name = "b_Depot";
+            this.b_Depot.Size = new System.Drawing.Size(75, 23);
+            this.b_Depot.TabIndex = 3;
+            this.b_Depot.Text = "Hinzufügen";
+            this.b_Depot.UseVisualStyleBackColor = true;
+            // 
+            // tb_Depot
+            // 
+            this.tb_Depot.Location = new System.Drawing.Point(88, 40);
+            this.tb_Depot.Name = "tb_Depot";
+            this.tb_Depot.Size = new System.Drawing.Size(100, 20);
+            this.tb_Depot.TabIndex = 2;
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
@@ -250,6 +280,7 @@
             this.cb_Depot.Name = "cb_Depot";
             this.cb_Depot.Size = new System.Drawing.Size(121, 21);
             this.cb_Depot.TabIndex = 0;
+            this.cb_Depot.SelectedIndexChanged += new System.EventHandler(this.cb_Depot_SelectedIndexChanged);
             // 
             // tabPage3
             // 
@@ -457,30 +488,22 @@
             this.konfigurationspfadToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.konfigurationspfadToolStripMenuItem.Text = "Konfigurationspfad";
             // 
-            // tb_Depot
+            // dateTimePicker1
             // 
-            this.tb_Depot.Location = new System.Drawing.Point(88, 40);
-            this.tb_Depot.Name = "tb_Depot";
-            this.tb_Depot.Size = new System.Drawing.Size(100, 20);
-            this.tb_Depot.TabIndex = 2;
+            this.dateTimePicker1.Location = new System.Drawing.Point(408, 304);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(97, 20);
+            this.dateTimePicker1.TabIndex = 12;
             // 
-            // b_Depot
+            // dtp_Aktien
             // 
-            this.b_Depot.Location = new System.Drawing.Point(209, 38);
-            this.b_Depot.Name = "b_Depot";
-            this.b_Depot.Size = new System.Drawing.Size(75, 23);
-            this.b_Depot.TabIndex = 3;
-            this.b_Depot.Text = "Hinzufügen";
-            this.b_Depot.UseVisualStyleBackColor = true;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(33, 43);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(35, 13);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "Name";
+            this.dtp_Aktien.AutoSize = true;
+            this.dtp_Aktien.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtp_Aktien.Location = new System.Drawing.Point(408, 274);
+            this.dtp_Aktien.Name = "dtp_Aktien";
+            this.dtp_Aktien.Size = new System.Drawing.Size(71, 16);
+            this.dtp_Aktien.TabIndex = 13;
+            this.dtp_Aktien.Text = "Kaufdatum";
             // 
             // StoChart
             // 
@@ -512,7 +535,7 @@
 
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button b_aktien;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cb_Depot_Stock;
         private System.Windows.Forms.TextBox tb_ISIN;
@@ -538,6 +561,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button b_Depot;
         private System.Windows.Forms.TextBox tb_Depot;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Label dtp_Aktien;
     }
 }
 

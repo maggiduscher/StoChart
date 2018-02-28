@@ -17,16 +17,16 @@ namespace Alpha_Vantage_CS
         private string strJSONDiv;
 
 
-       public void SetContraction(string Contraction)
+        public void SetContraction(string Contraction)
         {
             this.strContraction = Contraction;
         }
-       public void SetJSONString()
+        public bool SetJSONString()
         {
             string strConn = ("https://api.iextrading.com/1.0/stock/market/batch?symbols=<0>&types=quote,chart&range=1m&last=1");
-            strConn=strConn.Replace("<0>", strContraction);
-          
-        
+            strConn = strConn.Replace("<0>", strContraction);
+
+
 
             System.Net.WebClient webClient = new WebClient();
             webClient.Proxy = HttpWebRequest.GetSystemWebProxy();
@@ -36,58 +36,65 @@ namespace Alpha_Vantage_CS
             StreamReader sr = new StreamReader(strm);
 
             this.strJSONStock = sr.ReadToEnd();
+            if (this.strJSONStock.Length < 3) return false;
             this.strJSONStock = strJSONStock.Substring(strJSONStock.IndexOf(':') + 1, strJSONStock.Length - (strJSONStock.IndexOf(':') + 2));
             this.strJSONStock = strJSONStock.Replace("null", "0");
             strm.Close();
 
-           // Dividende
+
+            // Dividende
             strConn = ("https://api.iextrading.com/1.0/stock/<0>/dividends/5y");
             strConn = strConn.Replace("<0>", strContraction);
 
 
             strm = webClient.OpenRead(strConn);
             sr = new StreamReader(strm);
-            this.strJSONDiv = "{data:"; 
+            this.strJSONDiv = "{data:";
             this.strJSONDiv += sr.ReadToEnd();
-            this.strJSONDiv += "}"; 
-             strm.Close();               
+            this.strJSONDiv += "}";
+            strm.Close();
+
+            return true;
         }
 
-  
-       public void AddStockToDB()
-        {
-           // Verbindung mit Datenbank
 
+        public void AddStockToDB()
+        {
+            // Verbindung mit Datenbank
+
+            if (this.strJSONStock == null)
+            {
+
+            }
 
             CDataStock StockData = JsonConvert.DeserializeObject<CDataStock>(this.strJSONStock);
-          //  Console.WriteLine(this.strJSONDiv);
-           if(this.strJSONDiv.Length >15)
-           {
-               CDividende5Y Dividende = JsonConvert.DeserializeObject<CDividende5Y>(this.strJSONDiv);
-               Console.WriteLine(Dividende.data[0].amount);
-           }
-           
+            //  Console.WriteLine(this.strJSONDiv);
+            if (this.strJSONDiv.Length > 15)
+            {
+                CDividende5Y Dividende = JsonConvert.DeserializeObject<CDividende5Y>(this.strJSONDiv);
+                Console.WriteLine(Dividende.data[0].amount);
+            }
+
             //Console.WriteLine(Dividende.Property1[0].amount);
             //Console.WriteLine(StockData.quote.companyName);
             //Console.WriteLine(StockData.chart[20].close);
             //Console.WriteLine(StockData.chart[20].date);
-           
-           
-         
-            
+
+
 
             string INSERT = "INSERT INTO TABLE()VALUES(<0>)";
 
-            
+
 
 
         }
 
-       public string GetStockData() {
+        public string GetStockData()
+        {
 
-           return this.strJSONStock;
-       
-       }
+            return this.strJSONStock;
+
+        }
 
     }
 }

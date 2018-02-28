@@ -39,9 +39,29 @@ namespace DataLoader {
 
             chart.Series[DataStock.quote.symbol].Points.DataBindXY(d_data, i_Y);
 
-         
-
            
+        }
+
+        public static void f_AddStock(string Kuerzel, string WKN, string ISIN, string Menge, string Depot) {
+
+            if (Kuerzel.Trim() != "" && WKN.Trim() != "" && ISIN.Trim() != "" && Menge.Trim() != "" && Depot.Trim() != "")
+            {
+
+                //get Depot ID
+                //get Aktien
+                //Aktie nicht vorhanden -> eintragen
+                //Aktien erhöhen
+
+            }
+            else MessageBox.Show("Bitte überprüfen Sie ihre Angaben!");
+
+        }
+
+        public static void f_changeDepot() { 
+        
+            //Depot aus der Datenbank laden
+            //Eintragen in die entsprechenden Felder
+        
         }
     
     }
