@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Alpha_Vantage_CS;
+using System.Data.SQLite;
 
 namespace DataLoader {
 
@@ -44,8 +45,51 @@ namespace DataLoader {
 
         public static void f_AddStock(string Kuerzel, string WKN, string ISIN, string Menge, string Depot) {
 
-            if (Kuerzel.Trim() != "" && WKN.Trim() != "" && ISIN.Trim() != "" && Menge.Trim() != "" && Depot.Trim() != "")
+            if (Kuerzel.Trim() != "" && WKN.Trim() != "" && ISIN.Trim() != "" && Menge.Trim() != "" /*&& Depot.Trim() != ""*/)
             {
+                AddStock AT = new AddStock();
+                AT.SetContraction(Kuerzel);
+                if (!AT.SetJSONString()) 
+                {
+                    MessageBox.Show("Aktie nicht Gefunden");
+                }
+                else
+                {
+
+                    SQLiteConnection connection = new SQLiteConnection("Data Source= StoChart.sqllite");
+                    try
+                    {
+                         connection.Open();
+                         SQLiteCommand command = new SQLiteCommand(connection);
+                         command.CommandText = "SELECT * FROM Aktien WHERE Kuerzel = Kürzel";
+                         SQLiteDataReader reader = command.ExecuteReader();
+
+                         if (reader.HasRows)
+                         {
+                             command.CommandText = "INSERT INTO Aktien()VALUES()";
+                             command.ExecuteNonQuery();
+                         }
+
+
+                         command.CommandText = "INSERT INTO GekaufteAktien()VALUES()";
+                         command.ExecuteNonQuery();
+
+                         connection.Close();
+
+
+                    }
+                    catch (InvalidCastException e)
+                    {
+
+                    }
+                    finally
+                    {
+                          connection.Close();
+                    }
+
+                   
+                  
+                }
 
                 //get Depot ID
                 //get Aktien
