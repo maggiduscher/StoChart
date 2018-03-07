@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,6 @@ namespace StoChart
 {
     public partial class StoChart : Form
     {
-        private bool b_StLoaded;
         public StoChart()
         {
             InitializeComponent();
@@ -26,11 +26,16 @@ namespace StoChart
             {
 
                 StreamReader sr = new StreamReader(@"C:\Users\"+ Environment.UserName +@"\StoChart\config.conf");
-
+                sr.Close();
             }
             else {
 
                 Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\StoChart");
+                SQLiteConnection.CreateFile(@"C:\Users\" + Environment.UserName + @"\StoChart\StoChart.sqlite");
+                SQLiteConnection db_Connection = DL.f_connectDatabase();
+                db_Connection.Open();
+                DL.f_fillDatabase(db_Connection);
+                db_Connection.Close();
                 StreamWriter sw = new StreamWriter(@"C:\Users\"+ Environment.UserName +@"\StoChart\config.conf");
                 sw.Close();
                 StreamReader sr = new StreamReader(@"C:\Users\" + Environment.UserName + @"\StoChart\config.conf");
@@ -48,34 +53,6 @@ namespace StoChart
 
         }
 
-        private void tabControl1_Click(object sender, EventArgs e)
-        {
-
-
-            AddStock AdSt = new AddStock();
-
-            AdSt.SetContraction("AAPL");
-            AdSt.SetJSONString();
-
-            CDataStock StockData = JsonConvert.DeserializeObject<CDataStock>(AdSt.GetStockData());
-            
-            DL.f_LoadStock(chart1, StockData);
-
-            AdSt.SetContraction("SAP");
-            if (!AdSt.SetJSONString()) MessageBox.Show("Kürzel nicht gefunden?!");
-            else
-            {
-                StockData = JsonConvert.DeserializeObject<CDataStock>(AdSt.GetStockData());
-
-                DL.f_LoadStock(chart1, StockData);
-
-            }
-
-
-
-
-        }
-
         private void b_aktien_Click(object sender, EventArgs e)
         {
 
@@ -88,6 +65,20 @@ namespace StoChart
 
            // DL.f_changeDepot(cb_Depot.SelectedText);
 
+        }
+
+        private void StoChart_Load(object sender, EventArgs e)
+        {
+
+            DL.f_loadStocks(chart1);
+
+            DL.f_fillStockList(clb_stock);
+        
+        }
+
+        private void clb_stock_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DL.f_loadCheckedStocks(clb_stock, chart1);
         }
     }
 }

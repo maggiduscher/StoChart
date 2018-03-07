@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Newtonsoft.Json;
 
 
@@ -32,27 +33,35 @@ namespace Alpha_Vantage_CS
             webClient.Proxy = HttpWebRequest.GetSystemWebProxy();
             webClient.Proxy.Credentials = CredentialCache.DefaultCredentials;
 
-            Stream strm = webClient.OpenRead(strConn);
-            StreamReader sr = new StreamReader(strm);
+            try {
 
-            this.strJSONStock = sr.ReadToEnd();
-            if (this.strJSONStock.Length < 3) return false;
-            this.strJSONStock = strJSONStock.Substring(strJSONStock.IndexOf(':') + 1, strJSONStock.Length - (strJSONStock.IndexOf(':') + 2));
-            this.strJSONStock = strJSONStock.Replace("null", "0");
-            strm.Close();
+                Stream strm = webClient.OpenRead(strConn);
+                StreamReader sr = new StreamReader(strm);
 
-
-            // Dividende
-            strConn = ("https://api.iextrading.com/1.0/stock/<0>/dividends/5y");
-            strConn = strConn.Replace("<0>", strContraction);
+                this.strJSONStock = sr.ReadToEnd();
+                if (this.strJSONStock.Length < 3) return false;
+                this.strJSONStock = strJSONStock.Substring(strJSONStock.IndexOf(':') + 1, strJSONStock.Length - (strJSONStock.IndexOf(':') + 2));
+                this.strJSONStock = strJSONStock.Replace("null", "0");
+                strm.Close();
 
 
-            strm = webClient.OpenRead(strConn);
-            sr = new StreamReader(strm);
-            this.strJSONDiv = "{data:";
-            this.strJSONDiv += sr.ReadToEnd();
-            this.strJSONDiv += "}";
-            strm.Close();
+                // Dividende
+                strConn = ("https://api.iextrading.com/1.0/stock/<0>/dividends/5y");
+                strConn = strConn.Replace("<0>", strContraction);
+
+
+                strm = webClient.OpenRead(strConn);
+                sr = new StreamReader(strm);
+                this.strJSONDiv = "{data:";
+                this.strJSONDiv += sr.ReadToEnd();
+                this.strJSONDiv += "}";
+                strm.Close();
+            }
+            catch {
+
+                return false;
+            };
+
 
             return true;
         }
