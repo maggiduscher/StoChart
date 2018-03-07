@@ -1,0 +1,39 @@
+@"BEGIN TRANSACTION;
+                       CREATE TABLE IF NOT EXISTS `gekaufteAktien` (
+	                        `Kürzel`	TEXT NOT NULL,
+	                        `Depot-ID`	INTEGER NOT NULL,
+	                        `Datum`	TEXT NOT NULL,
+	                        `Kaufkurs`	REAL NOT NULL,
+	                        `Anzahl`	REAL NOT NULL,
+	                        FOREIGN KEY(`Depot-ID`) REFERENCES `Depot`(`Depot-ID`),
+	                        FOREIGN KEY(`Kürzel`) REFERENCES `Aktien`(`Kürzel`),
+	                        PRIMARY KEY(`Kürzel`,`Depot-ID`,`Datum`)
+                        );
+                        CREATE TABLE IF NOT EXISTS `Dividende` (
+	                        `Kürzel`	TEXT NOT NULL,
+	                        `Datum`	TEXT NOT NULL,
+	                        `Ausschüttung`	REAL NOT NULL,
+	                        PRIMARY KEY(`Kürzel`,`Datum`),
+	                        FOREIGN KEY(`Kürzel`) REFERENCES `Aktien`(`Kürzel`)
+                        );
+                        CREATE TABLE IF NOT EXISTS `Depot` (
+	                        `Depot-ID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	                        `Name`	TEXT NOT NULL
+                        );
+                        CREATE TABLE IF NOT EXISTS `Daueraufträge` (
+	                        `Auftrag-ID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	                        `Depot-ID`	INTEGER NOT NULL,
+	                        `Kürzel`	TEXT,
+	                        `Kosten`	REAL NOT NULL,
+	                        `Zeit`	TEXT NOT NULL,
+	                        FOREIGN KEY(`Kürzel`) REFERENCES `Aktien`(`Kürzel`),
+	                        FOREIGN KEY(`Depot-ID`) REFERENCES `Depot`(`Depot-ID`)
+                        );
+                        CREATE TABLE IF NOT EXISTS `Aktien` (
+	                        `Kürzel`	TEXT NOT NULL,
+	                        `WKN`	TEXT NOT NULL,
+	                        `ISIN`	TEXT NOT NULL,
+	                        `Name`	TEXT NOT NULL,
+	                        PRIMARY KEY(`Kürzel`)
+                        );
+                        COMMIT;"
