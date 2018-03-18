@@ -74,6 +74,17 @@ namespace DataLoader {
 
            
         }
+        public static void f_AddDepot(string Name, System.Windows.Forms.ComboBox cb, System.Windows.Forms.ComboBox cb_depot)
+        {
+            SQLiteConnection connection = f_connectDatabase();
+            try
+            {
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(connection);
+                command.CommandText = "INSERT INTO `Depot`(Name)" +
+                                       "VALUES('" + Name + "')";
+                command.ExecuteNonQuery();
+
 
         public static void f_DeleteSparplan(int ID)
         {
@@ -87,6 +98,7 @@ namespace DataLoader {
 
                 command.ExecuteNonQuery();
 
+
             }
             catch (InvalidCastException ep)
             {
@@ -94,9 +106,13 @@ namespace DataLoader {
             }
             finally
             {
+
+                f_loadDepotList(cb, cb_depot);
+
                 connection.Close();
             }
         }
+
 
 
         public static void f_BuyStocks(List<BuyStock> list)
@@ -323,28 +339,6 @@ namespace DataLoader {
                     try
                     {
 
-                        connection.Open();
-                        SQLiteCommand command = new SQLiteCommand(connection);
-                        command.CommandText = "INSERT INTO `Daueraufträge`(`Depot-ID`,`Kürzel`,`Kosten`,`Zeit`,`Nächste_Aufführung`)VALUES(" + depot_id +",'"+ Kürzel + "',"+ summe +",' "+ Ausfuerung +"','"+ Date+"');";
-                        command.ExecuteNonQuery();
-
-                    }
-                    catch (InvalidCastException e)
-                    {
-                        MessageBox.Show("Fehler :" + e.Message);
-                    }
-                    finally
-                    {
-                        connection.Close();
-                    }
-
-                }
-            }
-            else
-            {
-                MessageBox.Show("Ungültige Eingabe");
-            }
-        }
         public static void f_AddStock(string Kuerzel, string WKN, string ISIN, string Menge, string Depot, string Preis, string Date, System.Windows.Forms.DataVisualization.Charting.Chart chart1, System.Windows.Forms.CheckedListBox clb)
         {
 
@@ -359,10 +353,9 @@ namespace DataLoader {
                 }
                 else
                 {
-                    Depot = "0";
                     float menge = float.Parse(Menge);
                     float preis = float.Parse(Preis);
-                    int depot = Convert.ToInt32(Depot);
+                    int depot;
 
                     AddStock AT = new AddStock();
                     AT.SetContraction(Kuerzel);
@@ -392,7 +385,7 @@ namespace DataLoader {
                                     "VALUES('" + Kuerzel + "','" + WKN + "','" + ISIN + "','" + Name + "')";
                                 command.ExecuteNonQuery();
 
-                                List<CDividende> listDivi = AT.GetDividende();
+                                List<CDividende> listDivi = AT.GetDividende(Date);
                                 foreach (var dummy in listDivi)
                                 {
                                     command.CommandText = "INSERT INTO Dividende(`Kürzel`,`Datum`,`Ausschüttung`)" +
@@ -403,51 +396,57 @@ namespace DataLoader {
                             else { reader.Close(); }
 
 
-
-                            //command = new SQLiteCommand(connection);
-                            //command.CommandText = "INSERT INTO `Depot`(Name) VALUES('Dummy');";
-                            //command.ExecuteNonQuery();
-
-
-                            command.CommandText = "INSERT INTO `gekaufteAktien`(`Kürzel`,`Depot-ID`,`Datum`,`Kaufkurs`,`Anzahl`)" +
-                                " VALUES('" + Kuerzel + "'," + depot + ",'" + Date + "'," + preis + "," + menge + ")";
-                            command.ExecuteNonQuery();
+                        connection.Open();
+                        SQLiteCommand command = new SQLiteCommand(connection);
+                        command.CommandText = "INSERT INTO `Daueraufträge`(`Depot-ID`,`Kürzel`,`Kosten`,`Zeit`,`Nächste_Aufführung`)VALUES(" + depot_id +",'"+ Kürzel + "',"+ summe +",' "+ Ausfuerung +"','"+ Date+"');";
+                        command.ExecuteNonQuery();
 
 
-
-                            
-
-
-                        }
-                        catch (InvalidCastException e)
-                        {
-                            MessageBox.Show("Fehler :" + e.Message);
-                        }
-                        finally
-                        {
-                            f_loadStocks(chart1);
-                            f_fillStockList(clb);
-                            connection.Close();
-                        }
-
-
-                        MessageBox.Show("Nice");
+                    }
+                    catch (InvalidCastException e)
+                    {
+                        MessageBox.Show("Fehler :" + e.Message);
+                    }
+                    finally
+                    {
+                        connection.Close();
                     }
 
-                    //get Depot ID
-                    //get Aktien
-                    //Aktie nicht vorhanden -> eintragen
-                    //Aktien erhöhen
                 }
             }
-            else MessageBox.Show("Bitte überprüfen Sie ihre Angaben!");
-
+            else
+            {
+                MessageBox.Show("Ungültige Eingabe");
+            }
         }
-
-        public static void f_changeDepot() { 
+       
+// ------------------------------------
+        public static void f_changeDepot(string depot, System.Windows.Forms.DataGridView dgv) { 
         
-            //Depot aus der Datenbank laden
-            //Eintragen in die entsprechenden Felder
+            SQLiteConnection db_connection = DL.f_connectDatabase();
+            db_connection.Open();
+
+            string sql = "SELECT `Kürzel`, `Datum`, `Kaufkurs`, `Anzahl` FROM `gekaufteAktien` INNER JOIN `Depot` ON `gekaufteAktien`.`Depot-ID` = `Depot`.`Depot-ID`  WHERE `Depot`.`Name` LIKE '" + depot + "';";
+            SQLiteCommand db_command = new SQLiteCommand(sql, db_connection);
+            SQLiteDataReader db_reader = db_command.ExecuteReader();
+
+            if (!db_reader.HasRows) {
+
+                dgv.Rows.Clear();
+                db_reader.Close();
+                db_connection.Close();
+                return;
+            
+            }
+
+
+            dgv.Rows.Clear();
+            while (db_reader.Read())
+            {
+
+                dgv.Rows.Add(db_reader["Kürzel"], db_reader["Kaufkurs"], db_reader["Anzahl"], db_reader["Datum"]);
+
+            }
         
         }
 
@@ -607,7 +606,71 @@ namespace DataLoader {
             
             }
         
-        } 
+        }
+
+        public static void f_loadDepots() { 
+        
+            
+
+        }
+
+        public static void f_loadDepotList(System.Windows.Forms.ComboBox cb, System.Windows.Forms.ComboBox cb_depot)
+        {
+
+            cb.Items.Clear();
+            cb_depot.Items.Clear();
+            
+            SQLiteConnection db_connection = DL.f_connectDatabase();
+            db_connection.Open();
+
+            string sql = "SELECT `Name` FROM `Depot`;";
+            SQLiteCommand db_command = new SQLiteCommand(sql, db_connection);
+            SQLiteDataReader db_reader = db_command.ExecuteReader();
+
+            if (!db_reader.HasRows)
+            {
+
+                db_reader.Close();
+                db_connection.Close();
+                return;
+
+            }
+
+            cb.Items.Clear();
+            while (db_reader.Read())
+            {
+
+                cb.Items.Add(db_reader["Name"].ToString());
+
+            }
+
+            db_connection = DL.f_connectDatabase();
+            db_connection.Open();
+
+            sql = "SELECT `Name` FROM `Depot`;";
+            db_command = new SQLiteCommand(sql, db_connection);
+            db_reader = db_command.ExecuteReader();
+
+            if (!db_reader.HasRows)
+            {
+
+                db_reader.Close();
+                db_connection.Close();
+                return;
+
+            }
+
+            cb_depot.Items.Clear();
+            while (db_reader.Read())
+            {
+
+                cb_depot.Items.Add(db_reader["Name"].ToString());
+
+            }
+            
+            
+
+        }
     
     }
 

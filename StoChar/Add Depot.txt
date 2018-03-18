@@ -1,7 +1,0 @@
-  private void b_Depot_Click(object sender, EventArgs e)
-        {
-            string strName = tb_Depot.Text;
-            string SQLBefehl = "INSERT INTO Depot(Namen)VALUES("+strName+");";
-            MessageBox.Show(SQLBefehl);
-
-        }

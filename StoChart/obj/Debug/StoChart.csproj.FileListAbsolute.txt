@@ -43,6 +43,7 @@ E:\StoChart\StoChart\obj\Debug\StoChart.csproj.GenerateResource.Cache
 F:\StoChart\StoChart\bin\Debug\StoChart.exe.config
 F:\StoChart\StoChart\obj\Debug\StoChart.exe
 F:\StoChart\StoChart\obj\Debug\StoChart.pdb
+<<<<<<< HEAD
 H:\Schule\SWE - AWE\StoChart\StoChart\bin\Debug\StoChart.exe.config
 H:\Schule\SWE - AWE\StoChart\StoChart\bin\Debug\StoChart.exe
 H:\Schule\SWE - AWE\StoChart\StoChart\bin\Debug\StoChart.pdb
@@ -64,3 +65,5 @@ H:\Schule\SWE - AWE\StoChart\StoChart\obj\Debug\StoChart.csproj.GenerateResource
 H:\Schule\SWE - AWE\StoChart\StoChart\obj\Debug\StoChart.csproj.CoreCompileInputs.cache
 H:\Schule\SWE - AWE\StoChart\StoChart\obj\Debug\StoChart.exe
 H:\Schule\SWE - AWE\StoChart\StoChart\obj\Debug\StoChart.pdb
+=======
+>>>>>>> 38f10462764e292e59883308b8f03e692130eda9

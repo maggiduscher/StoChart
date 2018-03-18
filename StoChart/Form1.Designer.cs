@@ -35,7 +35,9 @@
             System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint2 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(2D, 5D);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+
             this.label15 = new System.Windows.Forms.Label();
+
             this.label8 = new System.Windows.Forms.Label();
             this.Preis = new System.Windows.Forms.TextBox();
             this.dtp_Aktien = new System.Windows.Forms.Label();
@@ -53,10 +55,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label7 = new System.Windows.Forms.Label();
             this.b_Depot = new System.Windows.Forms.Button();
             this.tb_Depot = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.cb_Depot = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
@@ -81,14 +83,22 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.konfigurationspfadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+
             this.label16 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+
+            this.Kürzel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Kaufkurs = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Anzahl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Datum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.tabPage5.SuspendLayout();
@@ -116,7 +126,9 @@
             this.tabPage1.BackColor = System.Drawing.SystemColors.MenuBar;
             this.tabPage1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.tabPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+
             this.tabPage1.Controls.Add(this.label15);
+
             this.tabPage1.Controls.Add(this.label8);
             this.tabPage1.Controls.Add(this.Preis);
             this.tabPage1.Controls.Add(this.dtp_Aktien);
@@ -141,6 +153,7 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Manager";
             // 
+
             // label15
             // 
             this.label15.AutoSize = true;
@@ -151,6 +164,7 @@
             this.label15.TabIndex = 23;
             this.label15.Text = "€";
             // 
+
             // label8
             // 
             this.label8.AutoSize = true;
@@ -207,6 +221,7 @@
             // 
             // cb_Depot_Stock
             // 
+            this.cb_Depot_Stock.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_Depot_Stock.FormattingEnabled = true;
             this.cb_Depot_Stock.Location = new System.Drawing.Point(111, 304);
             this.cb_Depot_Stock.Name = "cb_Depot_Stock";
@@ -296,10 +311,10 @@
             this.tabPage2.BackColor = System.Drawing.SystemColors.MenuBar;
             this.tabPage2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.tabPage2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage2.Controls.Add(this.dataGridView1);
             this.tabPage2.Controls.Add(this.label7);
             this.tabPage2.Controls.Add(this.b_Depot);
             this.tabPage2.Controls.Add(this.tb_Depot);
-            this.tabPage2.Controls.Add(this.tableLayoutPanel1);
             this.tabPage2.Controls.Add(this.cb_Depot);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -307,6 +322,24 @@
             this.tabPage2.Size = new System.Drawing.Size(823, 412);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Depot";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Kürzel,
+            this.Kaufkurs,
+            this.Anzahl,
+            this.Datum});
+            this.dataGridView1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.dataGridView1.EnableHeadersVisualStyles = false;
+            this.dataGridView1.Location = new System.Drawing.Point(36, 153);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.dataGridView1.RowHeadersWidth = 4;
+            this.dataGridView1.Size = new System.Drawing.Size(747, 236);
+            this.dataGridView1.TabIndex = 5;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // label7
             // 
@@ -334,23 +367,11 @@
             this.tb_Depot.Size = new System.Drawing.Size(100, 20);
             this.tb_Depot.TabIndex = 2;
             // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(33, 135);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(750, 253);
-            this.tableLayoutPanel1.TabIndex = 1;
-            // 
             // cb_Depot
             // 
+            this.cb_Depot.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_Depot.FormattingEnabled = true;
-            this.cb_Depot.Location = new System.Drawing.Point(662, 104);
+            this.cb_Depot.Location = new System.Drawing.Point(662, 118);
             this.cb_Depot.Name = "cb_Depot";
             this.cb_Depot.Size = new System.Drawing.Size(121, 21);
             this.cb_Depot.TabIndex = 0;
@@ -606,6 +627,7 @@
             this.konfigurationspfadToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.konfigurationspfadToolStripMenuItem.Text = "Konfigurationspfad";
             // 
+
             // label16
             // 
             this.label16.AutoSize = true;
@@ -653,6 +675,35 @@
             this.tabPage8.TabIndex = 1;
             this.tabPage8.Text = "tabPage8";
             this.tabPage8.UseVisualStyleBackColor = true;
+
+            // Kürzel
+            // 
+            this.Kürzel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Kürzel.HeaderText = "Kürzel";
+            this.Kürzel.Name = "Kürzel";
+            this.Kürzel.ReadOnly = true;
+            // 
+            // Kaufkurs
+            // 
+            this.Kaufkurs.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Kaufkurs.HeaderText = "Kaufkurs";
+            this.Kaufkurs.Name = "Kaufkurs";
+            this.Kaufkurs.ReadOnly = true;
+            // 
+            // Anzahl
+            // 
+            this.Anzahl.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Anzahl.HeaderText = "Anzahl";
+            this.Anzahl.Name = "Anzahl";
+            this.Anzahl.ReadOnly = true;
+            // 
+            // Datum
+            // 
+            this.Datum.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Datum.HeaderText = "Datum";
+            this.Datum.Name = "Datum";
+            this.Datum.ReadOnly = true;
+
             // 
             // StoChart
             // 
@@ -670,6 +721,7 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.tabPage5.ResumeLayout(false);
@@ -701,7 +753,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ComboBox cb_Depot;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
@@ -717,6 +768,7 @@
         private System.Windows.Forms.CheckedListBox clb_stock;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox Preis;
+
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.ComboBox Ausfuerung;
         private System.Windows.Forms.Label label12;
@@ -739,6 +791,13 @@
         private System.Windows.Forms.TabPage tabPage8;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.ComboBox comboBox1;
+
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Kürzel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Kaufkurs;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Anzahl;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Datum;
+
     }
 }
 

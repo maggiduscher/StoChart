@@ -131,6 +131,7 @@ namespace Alpha_Vantage_CS
         }
         public string GetStockName() { return this.StockData.quote.companyName; }
 
+
         public List<CDividende> GetDividende()
         {
             List<CDividende> Dummy = new List<CDividende>();
@@ -154,9 +155,11 @@ namespace Alpha_Vantage_CS
                     Dummy.Add(new CDividende(data.amount, data.exDate));
                 }
                 
+
             }
             return Dummy;
         }
+
 
 
         public float GetlatestPrice()
@@ -186,6 +189,7 @@ namespace Alpha_Vantage_CS
 
             return 0;
         }
+
 
 
     }

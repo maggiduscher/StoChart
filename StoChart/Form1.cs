@@ -23,7 +23,7 @@ namespace StoChart
         public StoChart()
         {
             InitializeComponent();
-           
+
             if (File.Exists(@"C:\Users\" + Environment.UserName + @"\StoChart\config.conf")){
 
                 StreamReader sr = new StreamReader(@"C:\Users\"+ Environment.UserName +@"\StoChart\config.conf");
@@ -71,14 +71,17 @@ namespace StoChart
         private void b_aktien_Click(object sender, EventArgs e)
         {
 
-            DL.f_AddStock(tb_Kuerzel.Text, tb_WKN.Text, tb_ISIN.Text, tb_Menge.Text, cb_Depot_Stock.SelectedText, Preis.Text, dateTimePicker1.Text, chart1, clb_stock);
+
+
+            DL.f_AddStock(tb_Kuerzel.Text, tb_WKN.Text, tb_ISIN.Text, tb_Menge.Text, cb_Depot_Stock.SelectedItem.ToString(), Preis.Text, dateTimePicker1.Text, chart1, clb_stock);
+
             
         }
 
         private void cb_Depot_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-           // DL.f_changeDepot(cb_Depot.SelectedText);
+           DL.f_changeDepot(cb_Depot.SelectedItem.ToString(), dataGridView1);
 
         }
 
@@ -88,6 +91,8 @@ namespace StoChart
             DL.f_loadStocks(chart1);
 
             DL.f_fillStockList(clb_stock);
+
+            DL.f_loadDepotList(cb_Depot_Stock, cb_Depot);
         
         }
 
@@ -98,7 +103,9 @@ namespace StoChart
 
         private void b_Depot_Click(object sender, EventArgs e)
         {
-            DL.f_AddDepot(tb_Depot.Text);
+
+           DL.f_AddDepot(tb_Depot.Text, cb_Depot_Stock, cb_Depot);
+			
         }
 
         private void Add_Click(object sender, EventArgs e)
@@ -135,7 +142,10 @@ namespace StoChart
 
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        
+
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
