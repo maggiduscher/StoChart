@@ -11,11 +11,28 @@ using Newtonsoft.Json;
 
 namespace Alpha_Vantage_CS
 {
+    class CDividende
+    {
+        public CDividende()
+        {
+            this.Dividende = 0;
+            this.Date = " ";
+        }
+        public CDividende(float Div, string date)
+        {
+            this.Dividende = Div;
+            this.Date = date;
+        }
+        public float Dividende { get; set; }
+        public string Date { get; set; }
+    }
     class AddStock
     {
         private string strContraction;
         private string strJSONStock;
         private string strJSONDiv;
+        private CDataStock StockData = new CDataStock();
+        private CDividende5Y Dividende = null;
 
 
         public void SetContraction(string Contraction)
@@ -98,12 +115,42 @@ namespace Alpha_Vantage_CS
 
         }
 
+        public void SetStockData()
+        {
+
+            StockData = JsonConvert.DeserializeObject<CDataStock>(this.strJSONStock);
+
+            if (this.strJSONDiv.Length > 15) Dividende = JsonConvert.DeserializeObject<CDividende5Y>(this.strJSONDiv);
+        }
+
         public string GetStockData()
         {
 
             return this.strJSONStock;
 
         }
+        public string GetStockName() { return this.StockData.quote.companyName; }
+
+        public List<CDividende> GetDividende(string Date)
+        {
+            List<CDividende> Dummy = new List<CDividende>();
+            if (Dividende.data != null)
+            {
+                foreach (var data in Dividende.data)
+                {
+                    //DateTime StockDate = Convert.ToDateTime(data.exDate);
+                    //DateTime UserDate = Convert.ToDateTime(Date);
+                    //if (StockDate > UserDate)
+                    //{
+                    //    Dummy.Add(new CDividende(data.amount, data.exDate));
+                    //}
+                    Dummy.Add(new CDividende(data.amount, data.exDate));
+                }
+            }
+            return Dummy;
+        }
+
+
 
     }
 }
