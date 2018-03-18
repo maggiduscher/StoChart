@@ -28,13 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint5 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(1D, 10D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint6 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(2D, 5D);
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint1 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(1D, 10D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint2 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(2D, 5D);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.Preis = new System.Windows.Forms.TextBox();
             this.dtp_Aktien = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.b_aktien = new System.Windows.Forms.Button();
@@ -57,17 +60,41 @@
             this.cb_Depot = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.clb_stock = new System.Windows.Forms.CheckedListBox();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.label14 = new System.Windows.Forms.Label();
+            this.Delete_Sparplan = new System.Windows.Forms.Button();
+            this.Sparplan_List = new System.Windows.Forms.CheckedListBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.StartDate = new System.Windows.Forms.DateTimePicker();
+            this.Ausfuerung = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.Depot = new System.Windows.Forms.ComboBox();
+            this.Summe = new System.Windows.Forms.TextBox();
+            this.Kuerzel = new System.Windows.Forms.TextBox();
+            this.Add = new System.Windows.Forms.Button();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.konfigurationspfadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clb_stock = new System.Windows.Forms.CheckedListBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.tabPage5.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.tabControl2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -76,6 +103,8 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Location = new System.Drawing.Point(26, 27);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -87,6 +116,9 @@
             this.tabPage1.BackColor = System.Drawing.SystemColors.MenuBar;
             this.tabPage1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.tabPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage1.Controls.Add(this.label15);
+            this.tabPage1.Controls.Add(this.label8);
+            this.tabPage1.Controls.Add(this.Preis);
             this.tabPage1.Controls.Add(this.dtp_Aktien);
             this.tabPage1.Controls.Add(this.dateTimePicker1);
             this.tabPage1.Controls.Add(this.b_aktien);
@@ -108,6 +140,33 @@
             this.tabPage1.Size = new System.Drawing.Size(823, 412);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Manager";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(667, 171);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(15, 16);
+            this.label15.TabIndex = 23;
+            this.label15.Text = "€";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(558, 134);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(95, 16);
+            this.label8.TabIndex = 17;
+            this.label8.Text = "Preis pro Aktie";
+            // 
+            // Preis
+            // 
+            this.Preis.Location = new System.Drawing.Point(561, 167);
+            this.Preis.Name = "Preis";
+            this.Preis.Size = new System.Drawing.Size(100, 20);
+            this.Preis.TabIndex = 16;
             // 
             // dtp_Aktien
             // 
@@ -266,6 +325,7 @@
             this.b_Depot.TabIndex = 3;
             this.b_Depot.Text = "Hinzufügen";
             this.b_Depot.UseVisualStyleBackColor = true;
+            this.b_Depot.Click += new System.EventHandler(this.b_Depot_Click);
             // 
             // tb_Depot
             // 
@@ -320,27 +380,205 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Kurse";
             // 
+            // clb_stock
+            // 
+            this.clb_stock.CheckOnClick = true;
+            this.clb_stock.FormattingEnabled = true;
+            this.clb_stock.Location = new System.Drawing.Point(63, 317);
+            this.clb_stock.Name = "clb_stock";
+            this.clb_stock.ScrollAlwaysVisible = true;
+            this.clb_stock.Size = new System.Drawing.Size(591, 94);
+            this.clb_stock.TabIndex = 1;
+            this.clb_stock.SelectedIndexChanged += new System.EventHandler(this.clb_stock_SelectedIndexChanged);
+            // 
             // chart1
             // 
             this.chart1.BackColor = System.Drawing.SystemColors.MenuBar;
             this.chart1.BorderlineColor = System.Drawing.SystemColors.ActiveBorder;
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chart1.Legends.Add(legend3);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(-4, 3);
             this.chart1.Name = "chart1";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            series3.Points.Add(dataPoint5);
-            series3.Points.Add(dataPoint6);
-            series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            this.chart1.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            series1.Points.Add(dataPoint1);
+            series1.Points.Add(dataPoint2);
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(831, 321);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.tabPage5.Controls.Add(this.label14);
+            this.tabPage5.Controls.Add(this.Delete_Sparplan);
+            this.tabPage5.Controls.Add(this.Sparplan_List);
+            this.tabPage5.Controls.Add(this.label13);
+            this.tabPage5.Controls.Add(this.StartDate);
+            this.tabPage5.Controls.Add(this.Ausfuerung);
+            this.tabPage5.Controls.Add(this.label12);
+            this.tabPage5.Controls.Add(this.label11);
+            this.tabPage5.Controls.Add(this.label10);
+            this.tabPage5.Controls.Add(this.label9);
+            this.tabPage5.Controls.Add(this.Depot);
+            this.tabPage5.Controls.Add(this.Summe);
+            this.tabPage5.Controls.Add(this.Kuerzel);
+            this.tabPage5.Controls.Add(this.Add);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(823, 412);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Sparpläne";
+            this.tabPage5.Click += new System.EventHandler(this.tabPage5_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(281, 63);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(15, 16);
+            this.label14.TabIndex = 22;
+            this.label14.Text = "€";
+            // 
+            // Delete_Sparplan
+            // 
+            this.Delete_Sparplan.Location = new System.Drawing.Point(434, 180);
+            this.Delete_Sparplan.Name = "Delete_Sparplan";
+            this.Delete_Sparplan.Size = new System.Drawing.Size(75, 23);
+            this.Delete_Sparplan.TabIndex = 21;
+            this.Delete_Sparplan.Text = "Löschen";
+            this.Delete_Sparplan.UseVisualStyleBackColor = true;
+            this.Delete_Sparplan.Click += new System.EventHandler(this.Delete_Sparplan_Click);
+            // 
+            // Sparplan_List
+            // 
+            this.Sparplan_List.FormattingEnabled = true;
+            this.Sparplan_List.Location = new System.Drawing.Point(51, 180);
+            this.Sparplan_List.Name = "Sparplan_List";
+            this.Sparplan_List.Size = new System.Drawing.Size(355, 184);
+            this.Sparplan_List.TabIndex = 20;
+            this.Sparplan_List.SelectedIndexChanged += new System.EventHandler(this.Sparplan_List_SelectedIndexChanged);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(550, 34);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(77, 16);
+            this.label13.TabIndex = 19;
+            this.label13.Text = "Start Datum";
+            // 
+            // StartDate
+            // 
+            this.StartDate.Location = new System.Drawing.Point(553, 67);
+            this.StartDate.Name = "StartDate";
+            this.StartDate.Size = new System.Drawing.Size(97, 20);
+            this.StartDate.TabIndex = 18;
+            // 
+            // Ausfuerung
+            // 
+            this.Ausfuerung.FormattingEnabled = true;
+            this.Ausfuerung.Items.AddRange(new object[] {
+            "pro Monat",
+            "pro Quartal",
+            "pro Halbjahr "});
+            this.Ausfuerung.Location = new System.Drawing.Point(306, 62);
+            this.Ausfuerung.Name = "Ausfuerung";
+            this.Ausfuerung.Size = new System.Drawing.Size(100, 21);
+            this.Ausfuerung.TabIndex = 17;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(303, 34);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(74, 16);
+            this.label12.TabIndex = 16;
+            this.label12.Text = "Ausführung";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(177, 32);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(54, 16);
+            this.label11.TabIndex = 14;
+            this.label11.Text = "Summe";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(48, 32);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(44, 16);
+            this.label10.TabIndex = 13;
+            this.label10.Text = "Kürzel";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(434, 34);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(45, 16);
+            this.label9.TabIndex = 12;
+            this.label9.Text = "Depot";
+            // 
+            // Depot
+            // 
+            this.Depot.FormattingEnabled = true;
+            this.Depot.Location = new System.Drawing.Point(434, 64);
+            this.Depot.Name = "Depot";
+            this.Depot.Size = new System.Drawing.Size(100, 21);
+            this.Depot.TabIndex = 11;
+            // 
+            // Summe
+            // 
+            this.Summe.Location = new System.Drawing.Point(175, 63);
+            this.Summe.Name = "Summe";
+            this.Summe.Size = new System.Drawing.Size(100, 20);
+            this.Summe.TabIndex = 2;
+            // 
+            // Kuerzel
+            // 
+            this.Kuerzel.Location = new System.Drawing.Point(51, 63);
+            this.Kuerzel.Name = "Kuerzel";
+            this.Kuerzel.Size = new System.Drawing.Size(100, 20);
+            this.Kuerzel.TabIndex = 1;
+            // 
+            // Add
+            // 
+            this.Add.Location = new System.Drawing.Point(674, 64);
+            this.Add.Name = "Add";
+            this.Add.Size = new System.Drawing.Size(75, 23);
+            this.Add.TabIndex = 0;
+            this.Add.Text = "Hinzufügen";
+            this.Add.UseVisualStyleBackColor = true;
+            this.Add.Click += new System.EventHandler(this.Add_Click);
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.tabPage6.Controls.Add(this.tabControl2);
+            this.tabPage6.Controls.Add(this.label16);
+            this.tabPage6.Controls.Add(this.comboBox1);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(823, 412);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Depot";
             // 
             // menuStrip1
             // 
@@ -368,16 +606,53 @@
             this.konfigurationspfadToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.konfigurationspfadToolStripMenuItem.Text = "Konfigurationspfad";
             // 
-            // clb_stock
+            // label16
             // 
-            this.clb_stock.CheckOnClick = true;
-            this.clb_stock.FormattingEnabled = true;
-            this.clb_stock.Location = new System.Drawing.Point(63, 317);
-            this.clb_stock.Name = "clb_stock";
-            this.clb_stock.ScrollAlwaysVisible = true;
-            this.clb_stock.Size = new System.Drawing.Size(591, 94);
-            this.clb_stock.TabIndex = 1;
-            this.clb_stock.SelectedIndexChanged += new System.EventHandler(this.clb_stock_SelectedIndexChanged);
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(14, 12);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(45, 16);
+            this.label16.TabIndex = 12;
+            this.label16.Text = "Depot";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(14, 42);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(100, 21);
+            this.comboBox1.TabIndex = 11;
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Controls.Add(this.tabPage7);
+            this.tabControl2.Controls.Add(this.tabPage8);
+            this.tabControl2.Location = new System.Drawing.Point(3, 69);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(817, 340);
+            this.tabControl2.TabIndex = 13;
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage7.Size = new System.Drawing.Size(809, 314);
+            this.tabPage7.TabIndex = 0;
+            this.tabPage7.Text = "tabPage7";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // tabPage8
+            // 
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage8.Size = new System.Drawing.Size(809, 314);
+            this.tabPage8.TabIndex = 1;
+            this.tabPage8.Text = "tabPage8";
+            this.tabPage8.UseVisualStyleBackColor = true;
             // 
             // StoChart
             // 
@@ -397,8 +672,13 @@
             this.tabPage2.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
+            this.tabPage6.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.tabControl2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -435,6 +715,30 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label dtp_Aktien;
         private System.Windows.Forms.CheckedListBox clb_stock;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox Preis;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.ComboBox Ausfuerung;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox Depot;
+        private System.Windows.Forms.TextBox Summe;
+        private System.Windows.Forms.TextBox Kuerzel;
+        private System.Windows.Forms.Button Add;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.DateTimePicker StartDate;
+        private System.Windows.Forms.CheckedListBox Sparplan_List;
+        private System.Windows.Forms.Button Delete_Sparplan;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 

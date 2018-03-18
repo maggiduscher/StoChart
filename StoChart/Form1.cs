@@ -19,14 +19,16 @@ namespace StoChart
 {
     public partial class StoChart : Form
     {
+        List<CDepot> Depots = new List<CDepot>();
         public StoChart()
         {
             InitializeComponent();
-            if (File.Exists(@"C:\Users\" + Environment.UserName + @"\StoChart\config.conf"))
-            {
+           
+            if (File.Exists(@"C:\Users\" + Environment.UserName + @"\StoChart\config.conf")){
 
                 StreamReader sr = new StreamReader(@"C:\Users\"+ Environment.UserName +@"\StoChart\config.conf");
                 sr.Close();
+
             }
             else {
 
@@ -42,7 +44,10 @@ namespace StoChart
                 sr.Close();
 
             }
-
+            Load_Sparplan();
+            CheckSparplan();
+            Depots.Add(new CDepot(0));
+            
             chart1.Series.Clear();
             chart1.ChartAreas[0].AxisY.Minimum = 999999;
             chart1.ChartAreas[0].AxisY.Maximum = 0;
@@ -53,10 +58,20 @@ namespace StoChart
 
         }
 
+        private void CheckSparplan()
+        {
+            DL.f_CheckSparplan();
+        }
+
+        private void Load_Sparplan()
+        {
+            DL.f_LoadSparplan(this.Sparplan_List);
+        }
+
         private void b_aktien_Click(object sender, EventArgs e)
         {
 
-            DL.f_AddStock(tb_Kuerzel.Text, tb_WKN.Text, tb_ISIN.Text, tb_Menge.Text, cb_Depot_Stock.SelectedText);
+            DL.f_AddStock(tb_Kuerzel.Text, tb_WKN.Text, tb_ISIN.Text, tb_Menge.Text, cb_Depot_Stock.SelectedText, Preis.Text, dateTimePicker1.Text, chart1, clb_stock);
             
         }
 
@@ -79,6 +94,50 @@ namespace StoChart
         private void clb_stock_SelectedIndexChanged(object sender, EventArgs e)
         {
             DL.f_loadCheckedStocks(clb_stock, chart1);
+        }
+
+        private void b_Depot_Click(object sender, EventArgs e)
+        {
+            DL.f_AddDepot(tb_Depot.Text);
+        }
+
+        private void Add_Click(object sender, EventArgs e)
+        {
+            DL.f_AddSparPlan(this.Depot.Text, this.Summe.Text, this.Ausfuerung.Text, this.Kuerzel.Text, this.StartDate.Text);
+            this.Sparplan_List.Items.Clear();
+            Load_Sparplan();
+        }
+
+        private void Sparplan_List_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Delete_Sparplan_Click(object sender, EventArgs e)
+        {
+
+            string Text;
+            int ID = 0;
+
+            foreach (object itemChecked in this.Sparplan_List.CheckedItems)
+            {
+                Text = itemChecked.ToString();
+                ID = Convert.ToInt32(Text.Split('@')[1]);
+                DL.f_DeleteSparplan(ID);
+            }
+
+            this.Sparplan_List.Items.Clear();
+            Load_Sparplan();
+        }
+
+        private void tabPage5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
