@@ -11,11 +11,10 @@ E:\StoChart\StoChart\bin\Debug\EntityFramework.xml
 E:\StoChart\StoChart\bin\Debug\EntityFramework.SqlServer.xml
 E:\StoChart\StoChart\bin\Debug\Newtonsoft.Json.xml
 E:\StoChart\StoChart\bin\Debug\System.Data.SQLite.xml
+E:\StoChart\StoChart\bin\Debug\System.Data.SQLite.dll.config
 E:\StoChart\StoChart\obj\Debug\StoChart.StoChart.resources
 E:\StoChart\StoChart\obj\Debug\StoChart.Properties.Resources.resources
 E:\StoChart\StoChart\obj\Debug\StoChart.csproj.GenerateResource.Cache
+E:\StoChart\StoChart\obj\Debug\StoChart.csproj.CoreCompileInputs.cache
 E:\StoChart\StoChart\obj\Debug\StoChart.exe
 E:\StoChart\StoChart\obj\Debug\StoChart.pdb
-E:\StoChart\StoChart\obj\Debug\StoChart.csprojResolveAssemblyReference.cache
-E:\StoChart\StoChart\bin\Debug\System.Data.SQLite.dll.config
-E:\StoChart\StoChart\obj\Debug\StoChart.csproj.CoreCompileInputs.cache

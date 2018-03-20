@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint1 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(1D, 10D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint2 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(2D, 5D);
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint5 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(1D, 10D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint6 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(2D, 5D);
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.konfigurationspfadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,10 +66,6 @@
             this.ch_stock = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Kürzel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Kaufkurs = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Anzahl = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Datum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label7 = new System.Windows.Forms.Label();
             this.b_Depot = new System.Windows.Forms.Button();
             this.tb_Depot = new System.Windows.Forms.TextBox();
@@ -93,6 +89,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.Verkaufen = new System.Windows.Forms.Button();
+            this.Kürzel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Kaufkurs = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Anzahl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Datum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Kurs = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Gewinn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabPage4.SuspendLayout();
@@ -315,20 +318,20 @@
             // 
             this.chart1.BackColor = System.Drawing.SystemColors.MenuBar;
             this.chart1.BorderlineColor = System.Drawing.SystemColors.ActiveBorder;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea5.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea5);
+            legend5.Name = "Legend1";
+            this.chart1.Legends.Add(legend5);
             this.chart1.Location = new System.Drawing.Point(-4, 3);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            series1.Points.Add(dataPoint1);
-            series1.Points.Add(dataPoint2);
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            this.chart1.Series.Add(series1);
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series5.Legend = "Legend1";
+            series5.Name = "Series1";
+            series5.Points.Add(dataPoint5);
+            series5.Points.Add(dataPoint6);
+            series5.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            this.chart1.Series.Add(series5);
             this.chart1.Size = new System.Drawing.Size(831, 321);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -406,16 +409,16 @@
             // 
             // ch_stock
             // 
-            chartArea2.Name = "ChartArea1";
-            this.ch_stock.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.ch_stock.Legends.Add(legend2);
+            chartArea6.Name = "ChartArea1";
+            this.ch_stock.ChartAreas.Add(chartArea6);
+            legend6.Name = "Legend1";
+            this.ch_stock.Legends.Add(legend6);
             this.ch_stock.Location = new System.Drawing.Point(14, 17);
             this.ch_stock.Name = "ch_stock";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.ch_stock.Series.Add(series2);
+            series6.ChartArea = "ChartArea1";
+            series6.Legend = "Legend1";
+            series6.Name = "Series1";
+            this.ch_stock.Series.Add(series6);
             this.ch_stock.Size = new System.Drawing.Size(659, 369);
             this.ch_stock.TabIndex = 0;
             this.ch_stock.Text = "chart2";
@@ -444,7 +447,9 @@
             this.Kürzel,
             this.Kaufkurs,
             this.Anzahl,
-            this.Datum});
+            this.Datum,
+            this.Kurs,
+            this.Gewinn});
             this.dataGridView1.Cursor = System.Windows.Forms.Cursors.Default;
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.Location = new System.Drawing.Point(36, 153);
@@ -454,34 +459,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(747, 236);
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // Kürzel
-            // 
-            this.Kürzel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Kürzel.HeaderText = "Kürzel";
-            this.Kürzel.Name = "Kürzel";
-            this.Kürzel.ReadOnly = true;
-            // 
-            // Kaufkurs
-            // 
-            this.Kaufkurs.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Kaufkurs.HeaderText = "Kaufkurs";
-            this.Kaufkurs.Name = "Kaufkurs";
-            this.Kaufkurs.ReadOnly = true;
-            // 
-            // Anzahl
-            // 
-            this.Anzahl.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Anzahl.HeaderText = "Anzahl";
-            this.Anzahl.Name = "Anzahl";
-            this.Anzahl.ReadOnly = true;
-            // 
-            // Datum
-            // 
-            this.Datum.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Datum.HeaderText = "Datum";
-            this.Datum.Name = "Datum";
-            this.Datum.ReadOnly = true;
             // 
             // label7
             // 
@@ -524,6 +501,7 @@
             this.tabPage1.BackColor = System.Drawing.SystemColors.MenuBar;
             this.tabPage1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.tabPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage1.Controls.Add(this.Verkaufen);
             this.tabPage1.Controls.Add(this.label15);
             this.tabPage1.Controls.Add(this.label8);
             this.tabPage1.Controls.Add(this.Preis);
@@ -713,6 +691,57 @@
             this.tabControl1.Size = new System.Drawing.Size(831, 438);
             this.tabControl1.TabIndex = 0;
             // 
+            // Verkaufen
+            // 
+            this.Verkaufen.Location = new System.Drawing.Point(111, 366);
+            this.Verkaufen.Name = "Verkaufen";
+            this.Verkaufen.Size = new System.Drawing.Size(100, 23);
+            this.Verkaufen.TabIndex = 24;
+            this.Verkaufen.Text = "Verkaufen";
+            this.Verkaufen.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.Verkaufen.UseVisualStyleBackColor = true;
+            this.Verkaufen.Click += new System.EventHandler(this.Verkaufen_Click);
+            // 
+            // Kürzel
+            // 
+            this.Kürzel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Kürzel.HeaderText = "Kürzel";
+            this.Kürzel.Name = "Kürzel";
+            this.Kürzel.ReadOnly = true;
+            // 
+            // Kaufkurs
+            // 
+            this.Kaufkurs.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Kaufkurs.HeaderText = "Kaufkurs";
+            this.Kaufkurs.Name = "Kaufkurs";
+            this.Kaufkurs.ReadOnly = true;
+            // 
+            // Anzahl
+            // 
+            this.Anzahl.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Anzahl.HeaderText = "Anzahl";
+            this.Anzahl.Name = "Anzahl";
+            this.Anzahl.ReadOnly = true;
+            // 
+            // Datum
+            // 
+            this.Datum.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Datum.HeaderText = "Datum";
+            this.Datum.Name = "Datum";
+            this.Datum.ReadOnly = true;
+            // 
+            // Kurs
+            // 
+            this.Kurs.HeaderText = "Kurs";
+            this.Kurs.Name = "Kurs";
+            this.Kurs.ReadOnly = true;
+            // 
+            // Gewinn
+            // 
+            this.Gewinn.HeaderText = "Gewinn";
+            this.Gewinn.Name = "Gewinn";
+            this.Gewinn.ReadOnly = true;
+            // 
             // StoChart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -770,10 +799,6 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Kürzel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Kaufkurs;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Anzahl;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Datum;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button b_Depot;
         private System.Windows.Forms.TextBox tb_Depot;
@@ -803,6 +828,13 @@
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.ComboBox cb_charts;
         private System.Windows.Forms.DataVisualization.Charting.Chart ch_stock;
+        private System.Windows.Forms.Button Verkaufen;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Kürzel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Kaufkurs;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Anzahl;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Datum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Kurs;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Gewinn;
     }
 }
 
