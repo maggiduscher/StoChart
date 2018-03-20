@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using Alpha_Vantage_CS;
 using DataLoader;
 using System;
@@ -133,7 +134,7 @@ namespace StoChart
                     "WHERE `Depot-ID` = " + ID + ";";
                 SQLiteDataReader reader = command.ExecuteReader();
                 reader.Read();
-                 this.Name = reader["Name"].ToString();
+                this.Name = reader["Name"].ToString();
                 reader.Close();
 
                 command.CommandText = "SELECT * FROM `gekaufteAktien`" +
@@ -341,3 +342,4 @@ namespace StoChart
 
     }
 }
+
