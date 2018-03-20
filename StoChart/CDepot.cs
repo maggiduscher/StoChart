@@ -79,7 +79,7 @@ namespace StoChart
     {
         public string Name;
         public int ID;
-        public List<GekaufteAktien> gekaufeaktien = new List<GekaufteAktien>();
+        public List<GekaufteAktien> gekaufteaktien = new List<GekaufteAktien>();
         public List<Aktien> lAktien = new List<Aktien>();
 
         public CDepot(string Name)
@@ -90,10 +90,10 @@ namespace StoChart
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
                 command.CommandText = "SELECT * FROM `Depot`" +
-                    "WHERE `Name` = " + Name + ";";
+                    "WHERE `Name` = '" + Name + "';";
                 SQLiteDataReader reader = command.ExecuteReader();
                 reader.Read();
-                this.Name = reader["Depot-ID"].ToString();
+                this.ID =Convert.ToInt32( reader["Depot-ID"].ToString());
                 reader.Close();
 
                 command.CommandText = "SELECT * FROM `gekaufteAktien`" +
@@ -103,7 +103,7 @@ namespace StoChart
 
                 while (reader.Read())
                 {
-                    this.gekaufeaktien.Add(new GekaufteAktien(reader["Kürzel"].ToString(), float.Parse(reader["Anzahl"].ToString()), float.Parse(reader["Kaufkurs"].ToString()), reader["Datum"].ToString()));
+                    this.gekaufteaktien.Add(new GekaufteAktien(reader["Kürzel"].ToString(), float.Parse(reader["Anzahl"].ToString()), float.Parse(reader["Kaufkurs"].ToString()), reader["Datum"].ToString()));
                 }
 
 
@@ -130,7 +130,7 @@ namespace StoChart
                     "WHERE `Depot-ID` = " + ID + ";";
                 SQLiteDataReader reader = command.ExecuteReader();
                 reader.Read();
-                // this.Name = reader["Name"].ToString();
+                 //this.Name = reader["Name"].ToString();
                 reader.Close();
 
                 command.CommandText = "SELECT * FROM `gekaufteAktien`" +
@@ -140,7 +140,7 @@ namespace StoChart
 
                 while(reader.Read())
                 {
-                    this.gekaufeaktien.Add(new GekaufteAktien(reader["Kürzel"].ToString(), float.Parse( reader["Anzahl"].ToString()), float.Parse(reader["Kaufkurs"].ToString()) , reader["Datum"].ToString()));
+                    this.gekaufteaktien.Add(new GekaufteAktien(reader["Kürzel"].ToString(), float.Parse( reader["Anzahl"].ToString()), float.Parse(reader["Kaufkurs"].ToString()) , reader["Datum"].ToString()));
                 }
 
 
@@ -180,7 +180,7 @@ namespace StoChart
                 {
                     Name = reader["Kürzel"].ToString();
                     Anzahl = float.Parse(reader["SUM"].ToString());
-                    this.lAktien.Add(new Aktien(Name,Anzahl, this.gekaufeaktien));
+                    this.lAktien.Add(new Aktien(Name,Anzahl, this.gekaufteaktien));
                 }
                 reader.Close();
 
@@ -207,7 +207,7 @@ namespace StoChart
             DateTime DiviYear;
             float Dividende = 0;
 
-            foreach (var item in this.gekaufeaktien)
+            foreach (var item in this.gekaufteaktien)
             {
                 foreach (var i in item.Dividende)
                 {
@@ -228,7 +228,7 @@ namespace StoChart
             DateTime Month;
             float []Dividende = new float[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-            foreach (var item in this.gekaufeaktien)
+            foreach (var item in this.gekaufteaktien)
             {
                 foreach (var i in item.Dividende)
                 {
@@ -288,7 +288,7 @@ namespace StoChart
             DateTime Month;
             float[] Dividende = new float[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-            foreach (var item in this.gekaufeaktien)
+            foreach (var item in this.gekaufteaktien)
             {
                 foreach (var i in item.Dividende)
                 {
