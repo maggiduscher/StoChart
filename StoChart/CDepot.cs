@@ -40,23 +40,37 @@ namespace StoChart
         public string Kuerzel { get; set; }
         public float Anzahl { get; set; }
         public float Wert { get; set; }
+        public float Dividende { get; set; }
 
         public Aktien()
         {
             this.Kuerzel = "";
             this.Anzahl = 0;
             this.Wert = 0;
+            this.Dividende = 0;
         }
 
-        public Aktien(string Kuerzel, float Anzahl)
+        public Aktien(string Kuerzel, float Anzahl, List<GekaufteAktien> gekaufeaktien)
         {
             this.Kuerzel = Kuerzel;
+            this.Dividende = 0;
             this.Anzahl = Anzahl;
             AddStock Stock = new AddStock();
             Stock.SetContraction(Kuerzel);
             Stock.SetJSONString();
             Stock.SetStockData();
             this.Wert = Anzahl * Stock.GetlatestPrice();
+
+            foreach(var item in gekaufeaktien)
+            {
+                if(item.Kuerzel == this.Kuerzel)
+                {
+                    foreach(var i in item.Dividende)
+                    {
+                        this.Dividende += i.Dividende;
+                    }
+                }
+            }
 
         }
 
@@ -65,7 +79,7 @@ namespace StoChart
     {
         public string Name;
         public int ID;
-        public List<GekaufteAktien> gekaufeaktien = new List<GekaufteAktien>();
+        public List<GekaufteAktien> gekaufteaktien = new List<GekaufteAktien>();
         public List<Aktien> lAktien = new List<Aktien>();
 
         public CDepot(string Name)
@@ -73,23 +87,24 @@ namespace StoChart
             SQLiteConnection connection = DL.f_connectDatabase();
             try
             {
+                this.Name = Name;
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
                 command.CommandText = "SELECT * FROM `Depot`" +
-                    "WHERE `Name` = " + Name + ";";
+                    "WHERE `Name` = '" + Name + "';";
                 SQLiteDataReader reader = command.ExecuteReader();
                 reader.Read();
-                this.Name = reader["Depot-ID"].ToString();
+                this.ID =Convert.ToInt32( reader["Depot-ID"].ToString());
                 reader.Close();
 
                 command.CommandText = "SELECT * FROM `gekaufteAktien`" +
-                  "WHERE `Depot-ID` = " + ID + ";";
+                  "WHERE `Depot-ID` = '" + ID + "';";
                 reader = command.ExecuteReader();
 
 
                 while (reader.Read())
                 {
-                    this.gekaufeaktien.Add(new GekaufteAktien(reader["Kürzel"].ToString(), float.Parse(reader["Anzahl"].ToString()), float.Parse(reader["Kaufkurs"].ToString()), reader["Datum"].ToString()));
+                    this.gekaufteaktien.Add(new GekaufteAktien(reader["Kürzel"].ToString(), float.Parse(reader["Anzahl"].ToString()), float.Parse(reader["Kaufkurs"].ToString()), reader["Datum"].ToString()));
                 }
 
 
@@ -103,6 +118,8 @@ namespace StoChart
             {
                 connection.Close();
             }
+
+            GetAktien();
         }
 
         public CDepot(int ID)
@@ -116,7 +133,7 @@ namespace StoChart
                     "WHERE `Depot-ID` = " + ID + ";";
                 SQLiteDataReader reader = command.ExecuteReader();
                 reader.Read();
-                // this.Name = reader["Name"].ToString();
+                 this.Name = reader["Name"].ToString();
                 reader.Close();
 
                 command.CommandText = "SELECT * FROM `gekaufteAktien`" +
@@ -126,7 +143,7 @@ namespace StoChart
 
                 while(reader.Read())
                 {
-                    this.gekaufeaktien.Add(new GekaufteAktien(reader["Kürzel"].ToString(), float.Parse( reader["Anzahl"].ToString()), float.Parse(reader["Kaufkurs"].ToString()) , reader["Datum"].ToString()));
+                    this.gekaufteaktien.Add(new GekaufteAktien(reader["Kürzel"].ToString(), float.Parse( reader["Anzahl"].ToString()), float.Parse(reader["Kaufkurs"].ToString()) , reader["Datum"].ToString()));
                 }
 
 
@@ -141,7 +158,9 @@ namespace StoChart
                 connection.Close();
             }
             GetAktien();
+           
         }
+
 
         private void GetAktien()
         {
@@ -164,7 +183,7 @@ namespace StoChart
                 {
                     Name = reader["Kürzel"].ToString();
                     Anzahl = float.Parse(reader["SUM"].ToString());
-                    this.lAktien.Add(new Aktien(Name,Anzahl));
+                    this.lAktien.Add(new Aktien(Name,Anzahl, this.gekaufteaktien));
                 }
                 reader.Close();
 
@@ -179,8 +198,145 @@ namespace StoChart
                 connection.Close();
             }
 
+        
+        }
 
-           
+        public float GetDividendenYear(string strYear)
+        {
+            DateTime YearStart = Convert.ToDateTime(strYear);
+            DateTime YearEnde = YearStart.AddYears(1);
+            DateTime DiviYear;
+            float Dividende = 0;
+
+            foreach (var item in this.gekaufteaktien)
+            {
+                foreach (var i in item.Dividende)
+                {
+                    DiviYear = Convert.ToDateTime(i.Date);
+                    if(DiviYear > YearStart && DiviYear < YearEnde)
+                    {
+                        Dividende += i.Dividende;
+                    }
+                }
+            }
+
+            return Dividende;
+        }
+
+        public float[] GetDividendenMonth()
+        {
+         
+            DateTime Month;
+            float []Dividende = new float[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+            foreach (var item in this.gekaufteaktien)
+            {
+                foreach (var i in item.Dividende)
+                {
+                    Month = Convert.ToDateTime(i.Date);
+                    switch(Month.Month)
+                    {                  
+                        case 1:
+                            Dividende[0] += i.Dividende;
+                            break;
+                        case 2:
+                            Dividende[1] += i.Dividende;
+                            break;
+                        case 3:
+                            Dividende[2] += i.Dividende;
+                            break;
+                        case 4:
+                            Dividende[3] += i.Dividende;
+                            break;
+                        case 5:
+                            Dividende[4] += i.Dividende;
+                            break;
+                        case 6:
+                            Dividende[5] += i.Dividende;
+                            break;
+                        case 7:
+                            Dividende[6] += i.Dividende;
+                            break;
+                        case 8:
+                            Dividende[7] += i.Dividende;
+                            break;
+                        case 9:
+                            Dividende[8] += i.Dividende;
+                            break;
+                        case 10:
+                            Dividende[9] += i.Dividende;
+                            break;
+                        case 11:
+                            Dividende[10] += i.Dividende;
+                            break;
+                        case 12:
+                            Dividende[11] += i.Dividende;
+                            break;
+                    }
+                }
+            }
+            return Dividende;
+        }
+
+        public float[] GetDividendenMonthYear(string strYear)
+        {
+            DateTime YearStart = Convert.ToDateTime(strYear);
+            DateTime YearEnde = YearStart.AddYears(1);
+            DateTime DiviYear;
+            DateTime Month;
+            float[] Dividende = new float[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+            foreach (var item in this.gekaufteaktien)
+            {
+                foreach (var i in item.Dividende)
+                {
+                    DiviYear = Convert.ToDateTime(i.Date);
+                    if (DiviYear > YearStart && DiviYear < YearEnde)
+                    {
+                        Month = Convert.ToDateTime(i.Date);
+                        switch (Month.Month)
+                        {
+                            case 1:
+                                Dividende[0] += i.Dividende;
+                                break;
+                            case 2:
+                                Dividende[1] += i.Dividende;
+                                break;
+                            case 3:
+                                Dividende[2] += i.Dividende;
+                                break;
+                            case 4:
+                                Dividende[3] += i.Dividende;
+                                break;
+                            case 5:
+                                Dividende[4] += i.Dividende;
+                                break;
+                            case 6:
+                                Dividende[5] += i.Dividende;
+                                break;
+                            case 7:
+                                Dividende[6] += i.Dividende;
+                                break;
+                            case 8:
+                                Dividende[7] += i.Dividende;
+                                break;
+                            case 9:
+                                Dividende[8] += i.Dividende;
+                                break;
+                            case 10:
+                                Dividende[9] += i.Dividende;
+                                break;
+                            case 11:
+                                Dividende[10] += i.Dividende;
+                                break;
+                            case 12:
+                                Dividende[11] += i.Dividende;
+                                break;
+                        }
+                    }
+                }
+            }
+            return Dividende;
         }
 
     }

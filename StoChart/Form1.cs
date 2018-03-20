@@ -46,7 +46,6 @@ namespace StoChart
             }
             Load_Sparplan();
             CheckSparplan();
-            Depots.Add(new CDepot(0));
             
             chart1.Series.Clear();
             chart1.ChartAreas[0].AxisY.Minimum = 999999;
@@ -80,7 +79,7 @@ namespace StoChart
 
         private void cb_Depot_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+           
            DL.f_changeDepot(cb_Depot.SelectedItem.ToString(), dataGridView1);
 
         }
@@ -148,6 +147,11 @@ namespace StoChart
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void Verkaufen_Click(object sender, EventArgs e)
+        {
+            DL.f_DeleteStock(this.cb_Depot_Stock.Text, this.tb_Kuerzel.Text, Convert.ToDouble( this.tb_Menge.Text));
         }
     }
 }
