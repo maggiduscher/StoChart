@@ -1,29 +1,4 @@
-c:\users\lstrerath\documents\visual studio 2013\Projects\StoChart\StoChart\bin\Debug\StoChart.exe.config
-c:\users\lstrerath\documents\visual studio 2013\Projects\StoChart\StoChart\bin\Debug\StoChart.exe
-c:\users\lstrerath\documents\visual studio 2013\Projects\StoChart\StoChart\bin\Debug\StoChart.pdb
-c:\users\lstrerath\documents\visual studio 2013\Projects\StoChart\StoChart\obj\Debug\StoChart.csprojResolveAssemblyReference.cache
-c:\users\lstrerath\documents\visual studio 2013\Projects\StoChart\StoChart\obj\Debug\StoChart.Properties.Resources.resources
-c:\users\lstrerath\documents\visual studio 2013\Projects\StoChart\StoChart\obj\Debug\StoChart.csproj.GenerateResource.Cache
-c:\users\lstrerath\documents\visual studio 2013\Projects\StoChart\StoChart\obj\Debug\StoChart.exe
-c:\users\lstrerath\documents\visual studio 2013\Projects\StoChart\StoChart\obj\Debug\StoChart.pdb
-C:\Users\Lars\source\repos\StoChart\StoChart\StoChart\obj\Debug\StoChart.csprojResolveAssemblyReference.cache
-C:\Users\Lars\source\repos\StoChart\StoChart\StoChart\obj\Debug\StoChart.Form1.resources
-C:\Users\Lars\source\repos\StoChart\StoChart\StoChart\obj\Debug\StoChart.Properties.Resources.resources
-C:\Users\Lars\source\repos\StoChart\StoChart\StoChart\obj\Debug\StoChart.csproj.GenerateResource.Cache
-C:\Users\Lars\source\repos\StoChart\StoChart\StoChart\obj\Debug\StoChart.csproj.CoreCompileInputs.cache
-C:\Users\Lars\source\repos\StoChart\StoChart\StoChart\obj\Debug\StoChart.exe
-C:\Users\Lars\source\repos\StoChart\StoChart\StoChart\bin\Debug\StoChart.exe.config
-C:\Users\Lars\source\repos\StoChart\StoChart\StoChart\bin\Debug\StoChart.exe
-C:\Users\Lars\source\repos\StoChart\StoChart\StoChart\bin\Debug\StoChart.pdb
-C:\Users\Lars\source\repos\StoChart\StoChart\StoChart\bin\Debug\Newtonsoft.Json.dll
-C:\Users\Lars\source\repos\StoChart\StoChart\StoChart\bin\Debug\Newtonsoft.Json.xml
-C:\Users\Lars\source\repos\StoChart\StoChart\StoChart\obj\Debug\StoChart.pdb
-C:\Users\LStrerath\Documents\Visual Studio 2013\Projects\StoChart\StoChart\bin\Debug\Newtonsoft.Json.dll
-C:\Users\LStrerath\Documents\Visual Studio 2013\Projects\StoChart\StoChart\bin\Debug\Newtonsoft.Json.xml
-C:\Users\LStrerath\Documents\Visual Studio 2013\Projects\StoChart\StoChart\obj\Debug\StoChart.StoChart.resources
 E:\StoChart\StoChart\bin\Debug\StoChart.exe.config
-E:\StoChart\StoChart\obj\Debug\StoChart.exe
-E:\StoChart\StoChart\obj\Debug\StoChart.pdb
 E:\StoChart\StoChart\bin\Debug\StoChart.exe
 E:\StoChart\StoChart\bin\Debug\StoChart.pdb
 E:\StoChart\StoChart\bin\Debug\EntityFramework.dll
@@ -36,34 +11,11 @@ E:\StoChart\StoChart\bin\Debug\EntityFramework.xml
 E:\StoChart\StoChart\bin\Debug\EntityFramework.SqlServer.xml
 E:\StoChart\StoChart\bin\Debug\Newtonsoft.Json.xml
 E:\StoChart\StoChart\bin\Debug\System.Data.SQLite.xml
-E:\StoChart\StoChart\obj\Debug\StoChart.csprojResolveAssemblyReference.cache
 E:\StoChart\StoChart\obj\Debug\StoChart.StoChart.resources
 E:\StoChart\StoChart\obj\Debug\StoChart.Properties.Resources.resources
 E:\StoChart\StoChart\obj\Debug\StoChart.csproj.GenerateResource.Cache
-F:\StoChart\StoChart\bin\Debug\StoChart.exe.config
-F:\StoChart\StoChart\obj\Debug\StoChart.exe
-F:\StoChart\StoChart\obj\Debug\StoChart.pdb
-<<<<<<< HEAD
-H:\Schule\SWE - AWE\StoChart\StoChart\bin\Debug\StoChart.exe.config
-H:\Schule\SWE - AWE\StoChart\StoChart\bin\Debug\StoChart.exe
-H:\Schule\SWE - AWE\StoChart\StoChart\bin\Debug\StoChart.pdb
-H:\Schule\SWE - AWE\StoChart\StoChart\bin\Debug\EntityFramework.dll
-H:\Schule\SWE - AWE\StoChart\StoChart\bin\Debug\EntityFramework.SqlServer.dll
-H:\Schule\SWE - AWE\StoChart\StoChart\bin\Debug\Newtonsoft.Json.dll
-H:\Schule\SWE - AWE\StoChart\StoChart\bin\Debug\System.Data.SQLite.dll
-H:\Schule\SWE - AWE\StoChart\StoChart\bin\Debug\System.Data.SQLite.EF6.dll
-H:\Schule\SWE - AWE\StoChart\StoChart\bin\Debug\System.Data.SQLite.Linq.dll
-H:\Schule\SWE - AWE\StoChart\StoChart\bin\Debug\EntityFramework.xml
-H:\Schule\SWE - AWE\StoChart\StoChart\bin\Debug\EntityFramework.SqlServer.xml
-H:\Schule\SWE - AWE\StoChart\StoChart\bin\Debug\Newtonsoft.Json.xml
-H:\Schule\SWE - AWE\StoChart\StoChart\bin\Debug\System.Data.SQLite.xml
-H:\Schule\SWE - AWE\StoChart\StoChart\bin\Debug\System.Data.SQLite.dll.config
-H:\Schule\SWE - AWE\StoChart\StoChart\obj\Debug\StoChart.csprojResolveAssemblyReference.cache
-H:\Schule\SWE - AWE\StoChart\StoChart\obj\Debug\StoChart.StoChart.resources
-H:\Schule\SWE - AWE\StoChart\StoChart\obj\Debug\StoChart.Properties.Resources.resources
-H:\Schule\SWE - AWE\StoChart\StoChart\obj\Debug\StoChart.csproj.GenerateResource.Cache
-H:\Schule\SWE - AWE\StoChart\StoChart\obj\Debug\StoChart.csproj.CoreCompileInputs.cache
-H:\Schule\SWE - AWE\StoChart\StoChart\obj\Debug\StoChart.exe
-H:\Schule\SWE - AWE\StoChart\StoChart\obj\Debug\StoChart.pdb
-=======
->>>>>>> 38f10462764e292e59883308b8f03e692130eda9
+E:\StoChart\StoChart\obj\Debug\StoChart.exe
+E:\StoChart\StoChart\obj\Debug\StoChart.pdb
+E:\StoChart\StoChart\obj\Debug\StoChart.csprojResolveAssemblyReference.cache
+E:\StoChart\StoChart\bin\Debug\System.Data.SQLite.dll.config
+E:\StoChart\StoChart\obj\Debug\StoChart.csproj.CoreCompileInputs.cache

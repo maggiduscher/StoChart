@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Alpha_Vantage_CS;
 using Newtonsoft.Json;
+using StoChart;
+using System.Globalization;
 
 namespace DataLoader {
 
@@ -74,17 +76,6 @@ namespace DataLoader {
 
            
         }
-        public static void f_AddDepot(string Name, System.Windows.Forms.ComboBox cb, System.Windows.Forms.ComboBox cb_depot)
-        {
-            SQLiteConnection connection = f_connectDatabase();
-            try
-            {
-                connection.Open();
-                SQLiteCommand command = new SQLiteCommand(connection);
-                command.CommandText = "INSERT INTO `Depot`(Name)" +
-                                       "VALUES('" + Name + "')";
-                command.ExecuteNonQuery();
-
 
         public static void f_DeleteSparplan(int ID)
         {
@@ -107,7 +98,6 @@ namespace DataLoader {
             finally
             {
 
-                f_loadDepotList(cb, cb_depot);
 
                 connection.Close();
             }
@@ -264,7 +254,7 @@ namespace DataLoader {
 
         }
 
-        public static void f_AddDepot(string Name)
+        public static void f_AddDepot(string Name, System.Windows.Forms.ComboBox cb, System.Windows.Forms.ComboBox cb_depot, System.Windows.Forms.ComboBox cb_stock)
         {
             SQLiteConnection connection = f_connectDatabase();
             try
@@ -282,6 +272,8 @@ namespace DataLoader {
             }
             finally
             {
+                f_loadDepotList(cb, cb_depot, cb_stock);
+
                 connection.Close();
             }
         }
@@ -316,6 +308,7 @@ namespace DataLoader {
 
             return false;
         }
+
         public static void f_AddSparPlan(string Depot, string Summe, string Ausfuerung, string Kürzel, string Date)
         {
             if(/*Depot.Trim() != "" &&*/ Ausfuerung.Trim() != "" && Kürzel.Trim() != "" )
@@ -339,6 +332,30 @@ namespace DataLoader {
                     try
                     {
 
+                        connection.Open();
+                        SQLiteCommand command = new SQLiteCommand(connection);
+                        command.CommandText = "INSERT INTO `Daueraufträge`(`Depot-ID`,`Kürzel`,`Kosten`,`Zeit`,`Nächste_Aufführung`)VALUES(" + depot_id +",'"+ Kürzel + "',"+ summe +",' "+ Ausfuerung +"','"+ Date+"');";
+                        command.ExecuteNonQuery();
+
+
+                    }
+                    catch (InvalidCastException e)
+                    {
+                        MessageBox.Show("Fehler :" + e.Message);
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("Ungültige Eingabe");
+            }
+        }
+
         public static void f_AddStock(string Kuerzel, string WKN, string ISIN, string Menge, string Depot, string Preis, string Date, System.Windows.Forms.DataVisualization.Charting.Chart chart1, System.Windows.Forms.CheckedListBox clb)
         {
 
@@ -355,7 +372,7 @@ namespace DataLoader {
                 {
                     float menge = float.Parse(Menge);
                     float preis = float.Parse(Preis);
-                    int depot;
+                    int depot = 0;
 
                     AddStock AT = new AddStock();
                     AT.SetContraction(Kuerzel);
@@ -381,7 +398,7 @@ namespace DataLoader {
 
                                 reader.Close();
                                 //command = new SQLiteCommand(connection);
-                                command.CommandText = "INSERT INTO Aktien(Kürzel,WKN,ISIN,Name)" +
+                                command.CommandText = "INSERT INTO Aktien(`Kürzel`,`WKN`,`ISIN`, `Name`)" +
                                     "VALUES('" + Kuerzel + "','" + WKN + "','" + ISIN + "','" + Name + "')";
                                 command.ExecuteNonQuery();
 
@@ -395,32 +412,26 @@ namespace DataLoader {
                             }
                             else { reader.Close(); }
 
-
-                        connection.Open();
-                        SQLiteCommand command = new SQLiteCommand(connection);
-                        command.CommandText = "INSERT INTO `Daueraufträge`(`Depot-ID`,`Kürzel`,`Kosten`,`Zeit`,`Nächste_Aufführung`)VALUES(" + depot_id +",'"+ Kürzel + "',"+ summe +",' "+ Ausfuerung +"','"+ Date+"');";
-                        command.ExecuteNonQuery();
+                            command.CommandText = "INSERT INTO gekaufteAktien(`Kürzel`,`Depot-ID`,`Datum`,`Kaufkurs`,`Anzahl`)" +
+                           " VALUES('" + Kuerzel + "'," + depot + ",'" + Date + "'," + preis + "," + menge + ")";
+                            command.ExecuteNonQuery();
 
 
+                        }
+                        catch (InvalidCastException e)
+                        {
+                            MessageBox.Show("Fehler :" + e.Message);
+                        }
+                        finally
+                        {
+                            connection.Close();
+                        }
                     }
-                    catch (InvalidCastException e)
-                    {
-                        MessageBox.Show("Fehler :" + e.Message);
-                    }
-                    finally
-                    {
-                        connection.Close();
-                    }
-
                 }
             }
-            else
-            {
-                MessageBox.Show("Ungültige Eingabe");
-            }
         }
-       
-// ------------------------------------
+
+                        // ------------------------------------
         public static void f_changeDepot(string depot, System.Windows.Forms.DataGridView dgv) { 
         
             SQLiteConnection db_connection = DL.f_connectDatabase();
@@ -614,11 +625,12 @@ namespace DataLoader {
 
         }
 
-        public static void f_loadDepotList(System.Windows.Forms.ComboBox cb, System.Windows.Forms.ComboBox cb_depot)
+        public static void f_loadDepotList(System.Windows.Forms.ComboBox cb, System.Windows.Forms.ComboBox cb_depot, System.Windows.Forms.ComboBox cb_stock)
         {
 
             cb.Items.Clear();
             cb_depot.Items.Clear();
+            cb_stock.Items.Clear();
             
             SQLiteConnection db_connection = DL.f_connectDatabase();
             db_connection.Open();
@@ -641,37 +653,135 @@ namespace DataLoader {
             {
 
                 cb.Items.Add(db_reader["Name"].ToString());
-
-            }
-
-            db_connection = DL.f_connectDatabase();
-            db_connection.Open();
-
-            sql = "SELECT `Name` FROM `Depot`;";
-            db_command = new SQLiteCommand(sql, db_connection);
-            db_reader = db_command.ExecuteReader();
-
-            if (!db_reader.HasRows)
-            {
-
-                db_reader.Close();
-                db_connection.Close();
-                return;
-
-            }
-
-            cb_depot.Items.Clear();
-            while (db_reader.Read())
-            {
-
                 cb_depot.Items.Add(db_reader["Name"].ToString());
+                cb_stock.Items.Add(db_reader["Name"].ToString());
 
             }
+
+
+        }
+
+        public static void f_DepotChartChange(string name, System.Windows.Forms.DataVisualization.Charting.Chart chart, RadioButton[] rd) { 
+        
+            CDepot depot = new CDepot(name);
+            string type = null;
+
+            foreach (RadioButton button in rd) {
+
+                if (button.Checked) type = button.Text;
+            
+            }
+
+            switch (type) { 
+            
+                case "Kreis Diagramm":
+                        f_fillCircle(chart, depot);
+                    break;
+                case "Dividende | Monatlich":
+                    break;
+                case "Dividende | Jährlich":
+                    break;
+            
+            }
+            
             
             
 
         }
-    
+
+        public static void f_fillCircle(System.Windows.Forms.DataVisualization.Charting.Chart chart, CDepot depot){
+
+            chart.Series.Clear();
+
+            chart.Series.Add(depot.Name);
+            chart.Series[depot.Name].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            int i = 0;
+            foreach (Aktien Aktie in depot.lAktien) {
+
+                chart.Series[depot.Name].Points.Add(Math.Round(Aktie.Wert, 2));
+                chart.Series[depot.Name].Points[i].LegendText = Aktie.Kuerzel;
+                chart.Series[depot.Name].IsValueShownAsLabel = true;
+
+
+                i++;
+            }
+
+        }
+
+        public static void f_DividendeMonth(System.Windows.Forms.DataVisualization.Charting.Chart chart, CDepot depot) {
+
+            chart.Series.Clear();
+
+            chart.Series.Add(depot.Name);
+            chart.Series[depot.Name].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
+            chart.Series[depot.Name].IsValueShownAsLabel = true;
+            chart.Series[depot.Name].YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.String;
+
+            float[] dividende = depot.GetDividendenMonth();
+            int i = 0;
+            foreach (float f in dividende)
+            {
+                chart.Series[depot.Name].Points.AddXY(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i + 1), Math.Round(f, 2));
+
+
+                i++;
+            }
+
+        }
+
+        public static void f_DividendeYear(System.Windows.Forms.DataVisualization.Charting.Chart chart, CDepot depot)
+        {
+
+            chart.Series.Clear();
+
+            chart.Series.Add(depot.Name);
+            chart.Series[depot.Name].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
+            chart.Series[depot.Name].IsValueShownAsLabel = true;
+            chart.Series[depot.Name].YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.String;
+
+            String s_Date = DateTime.Now.ToString();
+            DateTime dt_datevalue = (Convert.ToDateTime(s_Date.ToString()));
+
+            float dividende = depot.GetDividendenYear("01.01." + dt_datevalue.Year.ToString());
+
+            chart.Series[depot.Name].Points.AddXY(dt_datevalue.Year.ToString(), Math.Round(dividende, 2));
+
+
+        }
+
+        public static void f_ChartTypeChange(string name, System.Windows.Forms.DataVisualization.Charting.Chart chart, RadioButton[] rd) {
+
+            CDepot depot = new CDepot(name);
+            string type = null;
+
+            foreach (RadioButton button in rd)
+            {
+
+                if (button.Checked) type = button.Text;
+
+            }
+
+            switch (type)
+            {
+
+                case "Kreis Diagramm":
+                    chart.Series[name].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+                    f_fillCircle(chart, depot);
+                    break;
+                case "Dividende | Monatlich":
+                    chart.Series[name].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
+                    f_DividendeMonth(chart, depot);
+                    break;
+                case "Dividende | Jährlich":
+                    chart.Series[name].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
+                    f_DividendeYear(chart, depot);
+                    break;
+
+            }
+
+        }
+
+
     }
 
 }

@@ -51,6 +51,8 @@ namespace StoChart
             chart1.Series.Clear();
             chart1.ChartAreas[0].AxisY.Minimum = 999999;
             chart1.ChartAreas[0].AxisY.Maximum = 0;
+            ch_stock.Series.Clear();
+            radioButton1.Checked = true;
         }
 
         private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
@@ -74,8 +76,12 @@ namespace StoChart
 
 
             DL.f_AddStock(tb_Kuerzel.Text, tb_WKN.Text, tb_ISIN.Text, tb_Menge.Text, cb_Depot_Stock.SelectedItem.ToString(), Preis.Text, dateTimePicker1.Text, chart1, clb_stock);
+            int dummy;
+            dummy = cb_charts.SelectedIndex;
+            cb_charts.SelectedIndex = cb_charts.Items.Count - 1;
+            cb_charts.SelectedIndex = dummy;
 
-            
+
         }
 
         private void cb_Depot_SelectedIndexChanged(object sender, EventArgs e)
@@ -92,7 +98,7 @@ namespace StoChart
 
             DL.f_fillStockList(clb_stock);
 
-            DL.f_loadDepotList(cb_Depot_Stock, cb_Depot);
+            DL.f_loadDepotList(cb_Depot_Stock, cb_Depot, cb_charts);
         
         }
 
@@ -104,7 +110,7 @@ namespace StoChart
         private void b_Depot_Click(object sender, EventArgs e)
         {
 
-           DL.f_AddDepot(tb_Depot.Text, cb_Depot_Stock, cb_Depot);
+           DL.f_AddDepot(tb_Depot.Text, cb_Depot_Stock, cb_Depot, cb_charts);
 			
         }
 
@@ -148,6 +154,18 @@ namespace StoChart
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RadioButton[] rb = {radioButton1, radioButton2, radioButton3};
+            if (cb_charts.SelectedItem != null)  DL.f_DepotChartChange(cb_charts.SelectedItem.ToString(), ch_stock, rb);
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton[] rb = { radioButton1, radioButton2, radioButton3 };
+            if(cb_charts.SelectedItem != null) DL.f_ChartTypeChange(cb_charts.SelectedItem.ToString(), ch_stock, rb);
         }
     }
 }

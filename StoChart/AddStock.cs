@@ -145,19 +145,23 @@ namespace Alpha_Vantage_CS
 
         public List<CDividende> GetDividende(string Date)
         {
-            List<CDividende> Dummy = new List<CDividende>();
-            foreach (var data in Dividende.data)
+            if (this.Dividende != null)
             {
-                DateTime StockDate = Convert.ToDateTime(data.exDate);
-                DateTime UserDate = Convert.ToDateTime(Date);
-                if (StockDate > UserDate)
+                List<CDividende> Dummy = new List<CDividende>();
+                foreach (Datum data in Dividende.data)
                 {
-                    Dummy.Add(new CDividende(data.amount, data.exDate));
-                }
-                
+                    DateTime StockDate = Convert.ToDateTime(data.exDate);
+                    DateTime UserDate = Convert.ToDateTime(Date);
+                    if (StockDate > UserDate)
+                    {
+                        Dummy.Add(new CDividende(data.amount, data.exDate));
+                    }
 
+
+                }
+                return Dummy;
             }
-            return Dummy;
+            else return null;
         }
 
 
