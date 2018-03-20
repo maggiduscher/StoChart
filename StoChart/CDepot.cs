@@ -87,6 +87,7 @@ namespace StoChart
             SQLiteConnection connection = DL.f_connectDatabase();
             try
             {
+                this.Name = Name;
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
                 command.CommandText = "SELECT * FROM `Depot`" +
@@ -97,7 +98,7 @@ namespace StoChart
                 reader.Close();
 
                 command.CommandText = "SELECT * FROM `gekaufteAktien`" +
-                  "WHERE `Depot-ID` = " + ID + ";";
+                  "WHERE `Depot-ID` = '" + ID + "';";
                 reader = command.ExecuteReader();
 
 
@@ -130,7 +131,7 @@ namespace StoChart
                     "WHERE `Depot-ID` = " + ID + ";";
                 SQLiteDataReader reader = command.ExecuteReader();
                 reader.Read();
-                 //this.Name = reader["Name"].ToString();
+                 this.Name = reader["Name"].ToString();
                 reader.Close();
 
                 command.CommandText = "SELECT * FROM `gekaufteAktien`" +
@@ -195,9 +196,7 @@ namespace StoChart
                 connection.Close();
             }
 
-            GetDividendenYear("1.1.2016");
-
-
+        
         }
 
         public float GetDividendenYear(string strYear)
