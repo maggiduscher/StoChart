@@ -135,12 +135,14 @@ namespace Alpha_Vantage_CS
         public List<CDividende> GetDividende()
         {
             List<CDividende> Dummy = new List<CDividende>();
-            foreach (var data in Dividende.data)
+            if (Dividende != null)
             {
-              
-                Dummy.Add(new CDividende(data.amount, data.exDate));
-            }
-            return Dummy;
+                foreach (var data in Dividende.data)
+                {
+                    Dummy.Add(new CDividende(data.amount, data.exDate));
+                }
+                return Dummy;
+            } return null;
         }
 
         public List<CDividende> GetDividende(string Date)

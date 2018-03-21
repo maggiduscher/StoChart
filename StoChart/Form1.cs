@@ -24,24 +24,44 @@ namespace StoChart
         {
             InitializeComponent();
 
-            if (File.Exists(@"C:\Users\" + Environment.UserName + @"\StoChart\config.conf")){
+            if (Directory.Exists(@"C:\Users\" + Environment.UserName + @"\StoChart")){
 
-                StreamReader sr = new StreamReader(@"C:\Users\"+ Environment.UserName +@"\StoChart\config.conf");
-                sr.Close();
+                if (File.Exists(@"C:\Users\" + Environment.UserName + @"\StoChart\config.conf"))
+                {
+                    StreamReader sr = new StreamReader(@"C:\Users\" + Environment.UserName + @"\StoChart\config.conf");
+                    sr.Close();
+                } else {
 
-            }
-            else {
+                    StreamWriter sw = new StreamWriter(@"C:\Users\" + Environment.UserName + @"\StoChart\config.conf");
+                    sw.Close();
+                
+                }
+
+                if (File.Exists(@"C:\Users\" + Environment.UserName + @"\StoChart\StoChart.sqlite"))
+                {
+
+
+
+                } else {
+
+                    SQLiteConnection.CreateFile(@"C:\Users\" + Environment.UserName + @"\StoChart\StoChart.sqlite");
+                    SQLiteConnection db_Connection = DL.f_connectDatabase();
+                    db_Connection.Open();
+                    DL.f_fillDatabase(db_Connection);
+                    db_Connection.Close();
+
+                }
+
+            } else {
 
                 Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\StoChart");
+                StreamWriter sw = new StreamWriter(@"C:\Users\" + Environment.UserName + @"\StoChart\config.conf");
+                sw.Close();
                 SQLiteConnection.CreateFile(@"C:\Users\" + Environment.UserName + @"\StoChart\StoChart.sqlite");
                 SQLiteConnection db_Connection = DL.f_connectDatabase();
                 db_Connection.Open();
                 DL.f_fillDatabase(db_Connection);
                 db_Connection.Close();
-                StreamWriter sw = new StreamWriter(@"C:\Users\"+ Environment.UserName +@"\StoChart\config.conf");
-                sw.Close();
-                StreamReader sr = new StreamReader(@"C:\Users\" + Environment.UserName + @"\StoChart\config.conf");
-                sr.Close();
 
             }
             Load_Sparplan();
@@ -75,11 +95,9 @@ namespace StoChart
 
 
             DL.f_AddStock(tb_Kuerzel.Text, tb_WKN.Text, tb_ISIN.Text, tb_Menge.Text, cb_Depot_Stock.SelectedItem.ToString(), Preis.Text, dateTimePicker1.Text, chart1, clb_stock);
-            int dummy;
-            dummy = cb_charts.SelectedIndex;
-            cb_charts.SelectedIndex = cb_charts.Items.Count - 1;
-            cb_charts.SelectedIndex = dummy;
-
+            RadioButton[] rb = { radioButton1, radioButton2, radioButton3 };
+            if (cb_charts.SelectedItem != null) DL.f_DepotChartChange(cb_charts.SelectedItem.ToString(), ch_stock, rb);
+            DL.f_fillStockList(clb_stock);
 
         }
 
@@ -97,7 +115,7 @@ namespace StoChart
 
             DL.f_fillStockList(clb_stock);
 
-            DL.f_loadDepotList(cb_Depot_Stock, cb_Depot, cb_charts);
+            DL.f_loadDepotList(cb_Depot_Stock, cb_Depot, cb_charts, cb_sparplan);
         
         }
 
@@ -109,13 +127,13 @@ namespace StoChart
         private void b_Depot_Click(object sender, EventArgs e)
         {
 
-           DL.f_AddDepot(tb_Depot.Text, cb_Depot_Stock, cb_Depot, cb_charts);
+           DL.f_AddDepot(tb_Depot.Text, cb_Depot_Stock, cb_Depot, cb_charts, cb_sparplan);
 			
         }
 
         private void Add_Click(object sender, EventArgs e)
         {
-            DL.f_AddSparPlan(this.Depot.Text, this.Summe.Text, this.Ausfuerung.Text, this.Kuerzel.Text, this.StartDate.Text);
+            DL.f_AddSparPlan(this.cb_sparplan.Text, this.Summe.Text, this.Ausfuerung.Text, this.Kuerzel.Text, this.StartDate.Text);
             this.Sparplan_List.Items.Clear();
             Load_Sparplan();
         }
@@ -142,18 +160,6 @@ namespace StoChart
             Load_Sparplan();
         }
 
-        private void tabPage5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        
-
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -171,6 +177,13 @@ namespace StoChart
         {
             DL.f_DeleteStock(this.cb_Depot_Stock.Text, this.tb_Kuerzel.Text, Convert.ToDouble( this.tb_Menge.Text));
 
+        }
+
+        private void b_deleteDepot_Click(object sender, EventArgs e)
+        {
+            if(cb_Depot.SelectedItem != null )DL.f_deleteDepot(cb_Depot.SelectedItem.ToString());
+            DL.f_loadDepotList(cb_Depot_Stock, cb_Depot, cb_charts, cb_sparplan);
+            dataGridView1.Rows.Clear();
         }
     }
 }

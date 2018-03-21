@@ -56,6 +56,7 @@ namespace DataLoader {
             chart.Series[DataStock.quote.symbol].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             chart.Series[DataStock.quote.symbol].Points.Clear();
 
+
             List<DateTime> l_data = new List<DateTime>();
             List<int> l_Y = new List<int>();
 
@@ -241,17 +242,30 @@ namespace DataLoader {
         }
 
 
-        public static void f_AddDepot(string Name, System.Windows.Forms.ComboBox cb, System.Windows.Forms.ComboBox cb_depot, System.Windows.Forms.ComboBox cb_stock)
+        public static void f_AddDepot(string Name, System.Windows.Forms.ComboBox cb, System.Windows.Forms.ComboBox cb_depot, System.Windows.Forms.ComboBox cb_stock, System.Windows.Forms.ComboBox cb_sparplan)
         {
             SQLiteConnection connection = f_connectDatabase();
             try
             {
+               
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
-                command.CommandText = "INSERT INTO `Depot`(Name)" +
-                                       "VALUES('" + Name + "')";
-                command.ExecuteNonQuery();
-                f_loadDepotList(cb, cb_depot, cb_stock);
+                command.CommandText = "SELECT Name AS \"Anzahl\" FROM `DEPOT` WHERE Name LIKE '" + Name + "';";
+                SQLiteDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows == false )
+                {
+                    reader.Close();
+                    command.CommandText = "INSERT INTO `Depot`(Name)" +
+                                           "VALUES('" + Name + "')";
+                    command.ExecuteNonQuery();
+                    f_loadDepotList(cb, cb_depot, cb_stock, cb_sparplan);
+
+                } else {
+                    reader.Close();
+                    MessageBox.Show("Depot bereits vorhanden (Name: " + Name + ") ");
+                
+                }
             }
             catch (InvalidCastException ep)
             {
@@ -259,9 +273,9 @@ namespace DataLoader {
             }
             finally
             {
-                f_loadDepotList(cb, cb_depot, cb_stock);
-
+                
                 connection.Close();
+            
             }
         }
         private static bool CheckAktieinDB(string Kuerzel)
@@ -350,7 +364,7 @@ namespace DataLoader {
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
                 command.CommandText = "SELECT * FROM `Depot`" +
-                    "WHERE `Name` = '" + Name + "';";
+                    "WHERE `Name` LIKE '" + Name + "';";
                 SQLiteDataReader reader = command.ExecuteReader();
                 reader.Read();
                 ID = Convert.ToInt32(reader["Depot-ID"].ToString());
@@ -414,12 +428,15 @@ namespace DataLoader {
                                     "VALUES('" + Kuerzel + "','" + WKN + "','" + ISIN + "','" + Name + "')";
                                 command.ExecuteNonQuery();
 
-                                List<CDividende> listDivi = AT.GetDividende(Date);
-                                foreach (var dummy in listDivi)
+                                List<CDividende> listDivi = AT.GetDividende();
+                                if (listDivi != null)
                                 {
-                                    command.CommandText = "INSERT INTO Dividende(`Kürzel`,`Datum`,`Ausschüttung`)" +
-                                        "VALUES('" + Kuerzel + "','" + dummy.Date + "'," + dummy.Dividende.ToString().Replace(',', '.') + ")";
-                                    command.ExecuteNonQuery();
+                                    foreach (var dummy in listDivi)
+                                    {
+                                        command.CommandText = "INSERT INTO Dividende(`Kürzel`,`Datum`,`Ausschüttung`)" +
+                                            "VALUES('" + Kuerzel + "','" + dummy.Date + "'," + dummy.Dividende.ToString().Replace(',', '.') + ")";
+                                        command.ExecuteNonQuery();
+                                    }
                                 }
                             }
                             else { reader.Close(); }
@@ -436,6 +453,7 @@ namespace DataLoader {
                         }
                         finally
                         {
+                            f_loadStocks(chart1);
                             connection.Close();
                             MessageBox.Show("Fertig");
                         }
@@ -459,9 +477,9 @@ namespace DataLoader {
 
             foreach (var item in Depot.gekaufteaktien)
             {
-                Gewinn = Math.Round((item.Kaufkurs / item.Kurs) * 100,2);
+                Gewinn = Math.Round(( item.Kurs / item.Kaufkurs) * 100,2) - 100;
                 strGewinn = Gewinn.ToString();
-                if (strGewinn.Length < 5) strGewinn += "0";
+                if ( strGewinn.Contains(",")  && strGewinn.Split(',')[1].Length == 1) strGewinn += "0";
                 strGewinn += "%";
                 dgv.Rows.Add(item.Kuerzel, item.Kaufkurs + " $", item.Anzahl, item.Kaufdatum, item.Kurs + " $", strGewinn);
             }
@@ -646,6 +664,8 @@ namespace DataLoader {
         public static void f_loadCheckedStocks(System.Windows.Forms.CheckedListBox clb, System.Windows.Forms.DataVisualization.Charting.Chart chart) {
 
             chart.Series.Clear();
+            chart.ChartAreas[0].AxisY.Minimum = 999999;
+            chart.ChartAreas[0].AxisY.Maximum = 0;
             
             foreach(object itemChecked in clb.CheckedItems)
             {
@@ -662,12 +682,59 @@ namespace DataLoader {
 
         }
 
-        public static void f_loadDepotList(System.Windows.Forms.ComboBox cb, System.Windows.Forms.ComboBox cb_depot, System.Windows.Forms.ComboBox cb_stock)
+        public static void f_deleteDepot(string Name) {
+
+            SQLiteConnection db_connection = DL.f_connectDatabase();
+            db_connection.Open();
+
+            string sql = "DELETE FROM `gekaufteAktien` WHERE `Depot-ID` = " + GetID(Name) + ";";
+            SQLiteCommand db_command = new SQLiteCommand(sql, db_connection);
+            db_command.ExecuteNonQuery();
+
+             sql = "DELETE FROM `Depot` WHERE `Name` LIKE '" + Name + "';";
+            db_command = new SQLiteCommand(sql, db_connection);
+            db_command.ExecuteNonQuery();
+
+            sql = "SELECT `gekaufteAktien`.`Kürzel` as '1', `Aktien`.`Kürzel` AS '2' FROM `Aktien` LEFT OUTER JOIN `gekaufteAktien` ON `Aktien`.`Kürzel` = `gekaufteAktien`.`Kürzel`;";
+            db_command.CommandText = sql;
+            SQLiteDataReader reader = db_command.ExecuteReader();
+            List<string> array = new List<string>();
+
+            while (reader.Read()) {
+
+                if (reader.IsDBNull(0)) {
+
+                    array.Add(Convert.ToString(reader["2"]));
+                
+                }
+            
+            }
+            reader.Close();
+
+            foreach (string item in array) {
+
+                sql = "DELETE FROM `Aktien` WHERE `Kürzel` LIKE '" + item + "';";
+                db_command.CommandText = sql;
+                db_command.ExecuteNonQuery();
+
+                sql = "DELETE FROM `Dividende` WHERE `Kürzel` LIKE '" + item + "';";
+                db_command.CommandText = sql;
+                db_command.ExecuteNonQuery();
+
+            }
+
+            db_connection.Close();
+
+        
+        }
+
+        public static void f_loadDepotList(System.Windows.Forms.ComboBox cb, System.Windows.Forms.ComboBox cb_depot, System.Windows.Forms.ComboBox cb_stock, System.Windows.Forms.ComboBox cb_sparplan)
         {
 
             cb.Items.Clear();
             cb_depot.Items.Clear();
             cb_stock.Items.Clear();
+            cb_sparplan.Items.Clear();
             
             SQLiteConnection db_connection = DL.f_connectDatabase();
             db_connection.Open();
@@ -690,6 +757,7 @@ namespace DataLoader {
                 cb.Items.Add(db_reader["Name"].ToString());
                 cb_depot.Items.Add(db_reader["Name"].ToString());
                 cb_stock.Items.Add(db_reader["Name"].ToString());
+                cb_sparplan.Items.Add(db_reader["Name"].ToString());
 
             }
 
@@ -714,8 +782,10 @@ namespace DataLoader {
                         f_fillCircle(chart, depot);
                     break;
                 case "Dividende | Monatlich":
+                    f_DividendeMonth(chart, depot);
                     break;
                 case "Dividende | Jährlich":
+                    f_DividendeYear(chart, depot);
                     break;
             
             }

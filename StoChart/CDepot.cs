@@ -241,50 +241,53 @@ namespace StoChart
 
             foreach (var item in this.gekaufteaktien)
             {
-                foreach (var i in item.Dividende)
+                if (item.Dividende != null)
                 {
-                    Month = Convert.ToDateTime(i.Date);
-                    switch (Month.Month)
+                    foreach (var i in item.Dividende)
                     {
-                        case 1:
-                            Dividende[0] += i.Dividende;
-                            break;
-                        case 2:
-                            Dividende[1] += i.Dividende;
-                            break;
-                        case 3:
-                            Dividende[2] += i.Dividende;
-                            break;
-                        case 4:
-                            Dividende[3] += i.Dividende;
-                            break;
-                        case 5:
-                            Dividende[4] += i.Dividende;
-                            break;
-                        case 6:
-                            Dividende[5] += i.Dividende;
-                            break;
-                        case 7:
-                            Dividende[6] += i.Dividende;
-                            break;
-                        case 8:
-                            Dividende[7] += i.Dividende;
-                            break;
-                        case 9:
-                            Dividende[8] += i.Dividende;
-                            break;
-                        case 10:
-                            Dividende[9] += i.Dividende;
-                            break;
-                        case 11:
-                            Dividende[10] += i.Dividende;
-                            break;
-                        case 12:
-                            Dividende[11] += i.Dividende;
-                            break;
+                        Month = Convert.ToDateTime(i.Date);
+                        switch (Month.Month)
+                        {
+                            case 1:
+                                Dividende[0] += i.Dividende;
+                                break;
+                            case 2:
+                                Dividende[1] += i.Dividende;
+                                break;
+                            case 3:
+                                Dividende[2] += i.Dividende;
+                                break;
+                            case 4:
+                                Dividende[3] += i.Dividende;
+                                break;
+                            case 5:
+                                Dividende[4] += i.Dividende;
+                                break;
+                            case 6:
+                                Dividende[5] += i.Dividende;
+                                break;
+                            case 7:
+                                Dividende[6] += i.Dividende;
+                                break;
+                            case 8:
+                                Dividende[7] += i.Dividende;
+                                break;
+                            case 9:
+                                Dividende[8] += i.Dividende;
+                                break;
+                            case 10:
+                                Dividende[9] += i.Dividende;
+                                break;
+                            case 11:
+                                Dividende[10] += i.Dividende;
+                                break;
+                            case 12:
+                                Dividende[11] += i.Dividende;
+                                break;
+
+                        }
 
                     }
-
                 }
             }
 
