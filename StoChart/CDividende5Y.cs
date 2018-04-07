@@ -6,10 +6,6 @@ using System.Threading.Tasks;
 
 namespace Alpha_Vantage_CS
 {
-
-
-
-
     public class CDividende5Y
     {
       public Datum[] data { get; set; }
@@ -27,7 +23,4 @@ namespace Alpha_Vantage_CS
        public string qualified { get; set; }
        public string indicated { get; set; }
     }
-
-
-
 }

@@ -28,7 +28,6 @@ namespace DataLoader {
         }
         public BuyStock(string Kuerzel, DateTime Date, float Geld, int Depot, int Auftrag_ID, string Zeit)
         {
-            
             this.Date = Date;
             this.Depot = Depot;
             this.Geld = Geld;
@@ -61,21 +60,17 @@ namespace DataLoader {
             List<int> l_Y = new List<int>();
 
             foreach (Chart chart1 in DataStock.chart) {
-
                 l_data.Add(Convert.ToDateTime(chart1.date));
                 l_Y.Add(Convert.ToInt32(chart1.close));
                 if (Convert.ToInt32(chart1.close) > chart.ChartAreas[0].AxisY.Maximum) chart.ChartAreas[0].AxisY.Maximum = Convert.ToInt32(chart1.close) + 20;
                 else if (Convert.ToInt32(chart1.close) < chart.ChartAreas[0].AxisY.Minimum && (chart1.close - 20) > 0) chart.ChartAreas[0].AxisY.Minimum = Convert.ToInt32(chart1.close) - 20;
                 else if (Convert.ToInt32(chart1.close) < chart.ChartAreas[0].AxisY.Minimum && (chart1.close - 20) <= 0) chart.ChartAreas[0].AxisY.Minimum = Convert.ToInt32(chart1.close);
-
             };
 
             DateTime[] d_data = l_data.ToArray();
             int[] i_Y = l_Y.ToArray();
 
             chart.Series[DataStock.quote.symbol].Points.DataBindXY(d_data, i_Y);
-
-           
         }
 
         public static void f_DeleteSparplan(int ID)
@@ -145,6 +140,8 @@ namespace DataLoader {
                                 case "pro Halbjahr":
                                     Months = 6;
                                     break;
+                                default:
+                                    break;
                             }
 
                             item.Date = item.Date.AddMonths(Months);
@@ -189,10 +186,7 @@ namespace DataLoader {
                         list.Add(new BuyStock(reader["Kürzel"].ToString(), NextPurchase, float.Parse(reader["Kosten"].ToString()), Convert.ToInt32(reader["Kosten"].ToString()), Convert.ToInt32(reader["Auftrag-ID"]), reader["Zeit"].ToString()));
                     } 
                 }
-                if(list != null)
-                {
-                    f_BuyStocks(list);
-                }
+                if(list != null){ f_BuyStocks(list);}
 
                 reader.Close();
 
@@ -204,7 +198,6 @@ namespace DataLoader {
             finally
             {
                 connection.Close();
-               
             }
         }
 
@@ -226,7 +219,6 @@ namespace DataLoader {
                     Text = reader["Name"] + " " + reader["Kosten"] + "€ "+ reader["Zeit"] + "\t\t\t\t\t\t\t\t@" + reader["Auftrag-ID"];
                     Sparplan.Items.Add(Text, false);
                 }
-
                 reader.Close();
             }
             catch (InvalidCastException ep)
@@ -236,7 +228,6 @@ namespace DataLoader {
             finally
             {
                 connection.Close();
-              
             }
 
         }
@@ -653,10 +644,7 @@ namespace DataLoader {
             } 
 
             clb.Items.Clear();
-            while (db_reader.Read())
-            {
-                clb.Items.Add(db_reader["Kürzel"].ToString());
-            }
+            while (db_reader.Read()){clb.Items.Add(db_reader["Kürzel"].ToString());}
             db_reader.Close();
             db_connection.Close();
         }
@@ -669,18 +657,11 @@ namespace DataLoader {
             
             foreach(object itemChecked in clb.CheckedItems)
             {
-                foreach(CDataStock C in StDa)
-                {
-                    if (C.quote.symbol == itemChecked.ToString()){f_LoadStock(chart, C);}
-                }
+                foreach(CDataStock C in StDa){if (C.quote.symbol == itemChecked.ToString()){f_LoadStock(chart, C);}}
             }
         }
 
-        public static void f_loadDepots() { 
-        
-            
-
-        }
+        public static void f_loadDepots() {}
 
         public static void f_deleteDepot(string Name) {
 
@@ -700,15 +681,7 @@ namespace DataLoader {
             SQLiteDataReader reader = db_command.ExecuteReader();
             List<string> array = new List<string>();
 
-            while (reader.Read()) {
-
-                if (reader.IsDBNull(0)) {
-
-                    array.Add(Convert.ToString(reader["2"]));
-                
-                }
-            
-            }
+            while (reader.Read()) {if (reader.IsDBNull(0)) { array.Add(Convert.ToString(reader["2"]));}}
             reader.Close();
 
             foreach (string item in array) {
@@ -753,12 +726,10 @@ namespace DataLoader {
             cb.Items.Clear();
             while (db_reader.Read())
             {
-
                 cb.Items.Add(db_reader["Name"].ToString());
                 cb_depot.Items.Add(db_reader["Name"].ToString());
                 cb_stock.Items.Add(db_reader["Name"].ToString());
                 cb_sparplan.Items.Add(db_reader["Name"].ToString());
-
             }
 
 
@@ -770,11 +741,7 @@ namespace DataLoader {
             CDepot depot = new CDepot(name);
             string type = null;
 
-            foreach (RadioButton button in rd) {
-
-                if (button.Checked) type = button.Text;
-            
-            }
+            foreach (RadioButton button in rd) {if (button.Checked) type = button.Text;}
 
             switch (type) { 
             
@@ -787,12 +754,10 @@ namespace DataLoader {
                 case "Dividende | Jährlich":
                     f_DividendeYear(chart, depot);
                     break;
-            
-            }
-            
-            
-            
+                default:
+                    break;
 
+            }
         }
 
         public static void f_fillCircle(System.Windows.Forms.DataVisualization.Charting.Chart chart, CDepot depot){
@@ -807,8 +772,6 @@ namespace DataLoader {
                 chart.Series[depot.Name].Points.Add(Math.Round(Aktie.Wert, 2));
                 chart.Series[depot.Name].Points[i].LegendText = Aktie.Kuerzel;
                 chart.Series[depot.Name].IsValueShownAsLabel = true;
-
-
                 i++;
             }
 
@@ -828,8 +791,6 @@ namespace DataLoader {
             foreach (float f in dividende)
             {
                 chart.Series[depot.Name].Points.AddXY(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i + 1), Math.Round(f, 2));
-
-
                 i++;
             }
 
@@ -851,21 +812,14 @@ namespace DataLoader {
             float dividende = depot.GetDividendenYear("01.01." + dt_datevalue.Year.ToString());
 
             chart.Series[depot.Name].Points.AddXY(dt_datevalue.Year.ToString(), Math.Round(dividende, 2));
-
-
         }
 
-        public static void f_ChartTypeChange(string name, System.Windows.Forms.DataVisualization.Charting.Chart chart, RadioButton[] rd) {
-
+        public static void f_ChartTypeChange(string name, System.Windows.Forms.DataVisualization.Charting.Chart chart, RadioButton[] rd)
+        {
             CDepot depot = new CDepot(name);
             string type = null;
 
-            foreach (RadioButton button in rd)
-            {
-
-                if (button.Checked) type = button.Text;
-
-            }
+            foreach (RadioButton button in rd) { if (button.Checked) type = button.Text;}
 
             switch (type)
             {
@@ -881,6 +835,8 @@ namespace DataLoader {
                 case "Dividende | Jährlich":
                     chart.Series[name].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
                     f_DividendeYear(chart, depot);
+                    break;
+                default:
                     break;
 
             }

@@ -64,16 +64,7 @@ namespace StoChart
 
             foreach (var item in gekaufeaktien)
             {
-                if (item.Kuerzel == this.Kuerzel)
-                {
-                    if (item.Dividende != null)
-                    {
-                        foreach (var i in item.Dividende)
-                        {
-                            this.Dividende += i.Dividende;
-                        }
-                    }
-                }
+                if (item.Kuerzel == this.Kuerzel) { if (item.Dividende != null){  foreach (var i in item.Dividende){this.Dividende += i.Dividende;} } }
             }
 
         }
@@ -222,10 +213,7 @@ namespace StoChart
                     foreach (var i in item.Dividende)
                     {
                         DiviYear = Convert.ToDateTime(i.Date);
-                        if (DiviYear > YearStart && DiviYear < YearEnde)
-                        {
-                            Dividende += i.Dividende;
-                        }
+                        if (DiviYear > YearStart && DiviYear < YearEnde){ Dividende += i.Dividende;}
                     }
                 }
             }
@@ -283,6 +271,8 @@ namespace StoChart
                                 break;
                             case 12:
                                 Dividende[11] += i.Dividende;
+                                break;
+                            default:
                                 break;
 
                         }
@@ -348,12 +338,12 @@ namespace StoChart
                             case 12:
                                 Dividende[11] += i.Dividende;
                                 break;
-
+                            default:
+                                break;
                         }
                     }
                 }
             }
-
             return Dividende;
         }
 
