@@ -26,13 +26,13 @@ namespace StoChart
 
             if (Directory.Exists(@"C:\Users\" + Environment.UserName + @"\StoChart")){
 
-                if (File.Exists(@"C:\Users\" + Environment.UserName + @"\StoChart\config.conf"))
+                if (File.Exists(@"C:\Users\" + Environment.UserName + @"\conf\StoChart\config.conf"))
                 {
-                    StreamReader sr = new StreamReader(@"C:\Users\" + Environment.UserName + @"\StoChart\config.conf");
+                    StreamReader sr = new StreamReader(@"C:\Users\" + Environment.UserName + @"\StoChart\conf\config.conf");
                     sr.Close();
                 } else {
 
-                    StreamWriter sw = new StreamWriter(@"C:\Users\" + Environment.UserName + @"\StoChart\config.conf");
+                    StreamWriter sw = new StreamWriter(@"C:\Users\" + Environment.UserName + @"\StoChart\conf\config.conf");
                     sw.Close();
                 
                 }
@@ -54,8 +54,8 @@ namespace StoChart
 
             } else {
 
-                Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\StoChart");
-                StreamWriter sw = new StreamWriter(@"C:\Users\" + Environment.UserName + @"\StoChart\config.conf");
+                Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\StoChart\conf");
+                StreamWriter sw = new StreamWriter(@"C:\Users\" + Environment.UserName + @"\StoChart\conf\config.conf");
                 sw.Close();
                 SQLiteConnection.CreateFile(@"C:\Users\" + Environment.UserName + @"\StoChart\StoChart.sqlite");
                 SQLiteConnection db_Connection = DL.f_connectDatabase();
@@ -68,7 +68,7 @@ namespace StoChart
             CheckSparplan();
             
             chart1.Series.Clear();
-            chart1.ChartAreas[0].AxisY.Minimum = 999999;
+            chart1.ChartAreas[0].AxisY.Minimum = 1000000;
             chart1.ChartAreas[0].AxisY.Maximum = 0;
             ch_stock.Series.Clear();
             radioButton1.Checked = true;
