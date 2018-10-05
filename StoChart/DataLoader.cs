@@ -210,7 +210,6 @@ namespace DataLoader {
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
                 command.CommandText = "Select `Daueraufträge`.*,`Aktien`.`Name` FROM `Daueraufträge` " +
-               //     "INNER JOIN `Depot` ON(`Daueraufträge`.`Depot-ID` LIKE `Depot`.`Depot-ID`) "
                "INNER JOIN `Aktien` ON(`Daueraufträge`.`Kürzel` LIKE `Aktien`.`Kürzel`)";
                 SQLiteDataReader reader = command.ExecuteReader();
                 string Text = "";
@@ -269,7 +268,7 @@ namespace DataLoader {
             
             }
         }
-        private static bool CheckAktieinDB(string Kuerzel)
+        private static bool CheckAktieInDB(string Kuerzel)
         {
             SQLiteConnection connection = f_connectDatabase();
             
@@ -312,7 +311,7 @@ namespace DataLoader {
                 {
                     MessageBox.Show("Ungültige Zahlenangabe");
                 }
-                else if (!CheckAktieinDB(Kürzel))
+                else if (!CheckAktieInDB(Kürzel))
                 {
                     MessageBox.Show("Aktie steht nich in der Dantenbank");
                 }
@@ -652,7 +651,7 @@ namespace DataLoader {
         public static void f_loadCheckedStocks(System.Windows.Forms.CheckedListBox clb, System.Windows.Forms.DataVisualization.Charting.Chart chart) {
 
             chart.Series.Clear();
-            chart.ChartAreas[0].AxisY.Minimum = 999999;
+            chart.ChartAreas[0].AxisY.Minimum = 1000000;
             chart.ChartAreas[0].AxisY.Maximum = 0;
             
             foreach(object itemChecked in clb.CheckedItems)

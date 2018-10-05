@@ -168,7 +168,7 @@ namespace Alpha_Vantage_CS
 
 
 
-        public float GetlatestPrice()
+        public float GetLatestPrice()
         {
             return StockData.quote.latestPrice;
         }
